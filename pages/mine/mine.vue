@@ -93,6 +93,9 @@ onShow(() => {
   if (savedColor) {
     themeColor.value = savedColor
     themeColorRgb.value = hexToRgb(savedColor)
+    uni.setTabBarStyle({
+      selectedColor: savedColor
+    })
   }
 })
 
@@ -131,7 +134,11 @@ const noop = () => {}
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  background: linear-gradient(
+    135deg,
+    var(--main-color),
+    rgba(var(--main-color-rgb), 0.7)
+  );
 }
 
 .glass-card {
@@ -270,8 +277,12 @@ const noop = () => {}
   width: 100rpx;
   height: 100rpx;
   border-radius: 50%;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  box-shadow: 0 12rpx 28rpx rgba(99, 102, 241, 0.4);
+  background: linear-gradient(
+    135deg,
+    var(--main-color),
+    rgba(var(--main-color-rgb), 0.7)
+  );
+  box-shadow: 0 12rpx 28rpx rgba(var(--main-color-rgb), 0.4);
   display: flex;
   align-items: center;
   justify-content: center;

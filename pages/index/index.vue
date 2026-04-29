@@ -114,6 +114,9 @@ onShow(() => {
   if (savedColor) {
     themeColor.value = savedColor
     themeColorRgb.value = hexToRgb(savedColor)
+    uni.setTabBarStyle({
+      selectedColor: savedColor
+    })
   }
 })
 

@@ -18,6 +18,9 @@ const _sfc_main = {
       if (savedColor) {
         themeColor.value = savedColor;
         themeColorRgb.value = hexToRgb(savedColor);
+        common_vendor.index.setTabBarStyle({
+          selectedColor: savedColor
+        });
       }
     });
     const buildList = () => data_collect.collectList.map((item) => ({

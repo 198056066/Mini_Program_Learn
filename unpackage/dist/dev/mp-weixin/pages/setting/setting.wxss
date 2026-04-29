@@ -1,15 +1,12 @@
 
 .page.data-v-018cdf56 {
-  --main-color: var(--48a0885f);
-  --main-color-rgb: var(--9d423024);
-}
-.page.data-v-018cdf56 {
   min-height: 100vh;
-  padding: 80rpx 32rpx 40rpx;
+  padding: 80rpx 30rpx 80rpx;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 32rpx;
+  gap: 24rpx;
+  background: #f5f5f5;
 }
 .nav.data-v-018cdf56 {
   background: #fff;
@@ -19,6 +16,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 16rpx;
+  box-shadow: 0 8rpx 20rpx rgba(0, 0, 0, 0.06);
 }
 .nav-btn.data-v-018cdf56 {
   height: 60rpx;
@@ -40,31 +38,153 @@
   font-size: 32rpx;
   font-weight: 700;
 }
-.section.data-v-018cdf56 {
-  background: #fff;
-  border-radius: 16rpx;
-  padding: 24rpx;
+.group.data-v-018cdf56 {
   display: flex;
   flex-direction: column;
+  gap: 12rpx;
+}
+.group-title.data-v-018cdf56 {
+  padding-left: 8rpx;
+  font-size: 24rpx;
+  color: #999;
+}
+.card.data-v-018cdf56 {
+  background: #fff;
+  border-radius: 20rpx;
+  box-shadow: 0 10rpx 24rpx rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+.row.data-v-018cdf56 {
+  height: 88rpx;
+  padding: 0 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1rpx solid #f1f1f1;
+  transition: transform 0.2s ease;
+}
+.row.data-v-018cdf56:last-child {
+  border-bottom: none;
+}
+.row.data-v-018cdf56:active {
+  transform: scale(0.97);
+}
+.row-left.data-v-018cdf56 {
+  display: flex;
+  align-items: center;
   gap: 16rpx;
 }
-.label.data-v-018cdf56 {
-  font-weight: 600;
+.icon.data-v-018cdf56 {
+  font-size: 36rpx;
+}
+.text.data-v-018cdf56 {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+.row-title.data-v-018cdf56 {
+  font-size: 28rpx;
+  color: #333;
+}
+.row-desc.data-v-018cdf56 {
+  font-size: 22rpx;
+  color: #999;
+}
+.arrow.data-v-018cdf56 {
+  color: #bbb;
+  font-size: 32rpx;
 }
 .palette.data-v-018cdf56 {
   display: flex;
-  gap: 16rpx;
+  gap: 12rpx;
 }
 .color.data-v-018cdf56 {
-  width: 64rpx;
-  height: 64rpx;
+  width: 36rpx;
+  height: 36rpx;
   border-radius: 50%;
-  position: relative;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
-
-/* 选中态：外圈高亮 + 轻微放大 */
 .color.active.data-v-018cdf56 {
   transform: scale(1.08);
-  box-shadow: 0 0 0 6rpx rgba(var(--main-color-rgb), 0.25);
+  box-shadow: 0 0 0 4rpx rgba(var(--main-color-rgb), 0.25);
+}
+.logout .row-title.data-v-018cdf56 {
+  color: #ef4444;
+}
+.footer.data-v-018cdf56 {
+  text-align: center;
+  color: #aaa;
+  font-size: 22rpx;
+  margin-top: 12rpx;
+}
+.mask.data-v-018cdf56 {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.0);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  z-index: 40;
+}
+.mask.show.data-v-018cdf56 {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.6);
+  pointer-events: auto;
+}
+.drawer.data-v-018cdf56 {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  border-radius: 24rpx 24rpx 0 0;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+  z-index: 50;
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+}
+.drawer.show.data-v-018cdf56 {
+  transform: translateY(0);
+}
+.drawer-header.data-v-018cdf56 {
+  padding: 24rpx 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1rpx solid #f2f2f2;
+}
+.drawer-title.data-v-018cdf56 {
+  font-size: 30rpx;
+  font-weight: 700;
+}
+.drawer-close.data-v-018cdf56 {
+  color: var(--main-color);
+  font-weight: 600;
+}
+.drawer-body.data-v-018cdf56 {
+  padding: 20rpx 30rpx 40rpx;
+  flex: 1;
+}
+.drawer-item.data-v-018cdf56 {
+  padding: 18rpx 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1rpx solid #f2f2f2;
+}
+.drawer-item.data-v-018cdf56:last-child {
+  border-bottom: none;
+}
+.drawer-item.active .drawer-label.data-v-018cdf56 {
+  color: var(--main-color);
+  font-weight: 600;
+}
+.drawer-label.data-v-018cdf56 {
+  font-size: 28rpx;
+  color: #333;
+}
+.drawer-preview.data-v-018cdf56 {
+  color: #666;
 }
