@@ -21,6 +21,11 @@ page {
 button::after {
   border: none;
 }
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 page {
   margin: 0;
   padding: 0;

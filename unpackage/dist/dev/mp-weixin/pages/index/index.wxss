@@ -84,22 +84,32 @@
 .tab-underline.data-v-1cf27b2a {
   position: absolute;
   bottom: 14rpx;
-  left: 24rpx;
+  left: 0;
   height: 6rpx;
   border-radius: 999rpx;
   background: var(--main-color);
   transition: transform 0.3s ease;
+}
+.tab-item.data-v-1cf27b2a {
+  align-self: start;
+}
+.card-item.data-v-1cf27b2a {
+  align-self: start;
 }
 .grid.data-v-1cf27b2a {
   padding: 24rpx;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20rpx;
+  grid-auto-rows: 10rpx;
 }
 .card-item.data-v-1cf27b2a {
   opacity: 0;
   transform: translateY(20rpx);
   animation: card-enter-1cf27b2a 0.6s ease forwards;
+}
+.card.data-v-1cf27b2a {
+  width: 100%;
 }
 .card-item.data-v-1cf27b2a:active {
   transform: scale(0.97);

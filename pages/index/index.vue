@@ -28,12 +28,12 @@
         </swiper>
       </view>
 
-      <scroll-view scroll-x class="tabs" :show-scrollbar="false">
+      <scroll-view scroll-x class="tabs" :show-scrollbar="false" @scroll="onTabsScroll">
         <view class="tabs-inner">
           <view
             v-for="(item, idx) in tabList"
             :key="item.id"
-            class="tab"
+            class="tab tab-item"
             :class="{ active: idx === selectedTab }"
             @tap="selectTab(idx)"
           >
@@ -48,7 +48,7 @@
           class="card trans card-item"
           v-for="(item, idx) in filteredCards"
           :key="item.id"
-          :style="{ animationDelay: `${idx * 0.06}s` }"
+          :style="{ animationDelay: `${idx * 0.06}s`, gridRowEnd: `span ${item.span}` }"
           @tap="goDetail(item.id)"
         >
           <image class="cover" :src="item.cover" mode="aspectFill" :style="{ height: `${item.coverHeight}rpx` }" />
@@ -72,8 +72,28 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { onShow } from '@dcloudio/uni-app'
+import { ref, computed, nextTick, getCurrentInstance } from 'vue'
+import { onShow, onReady } from '@dcloudio/uni-app'
+
+const instance = getCurrentInstance()
+const tabRects = ref([])
+const tabsInnerLeft = ref(0)
+const tabScrollLeft = ref(0)
+const measureTabs = () => {
+  const query = uni.createSelectorQuery().in(instance)
+  query.select('.tabs-inner').boundingClientRect()
+  query.select('.tabs').scrollOffset()
+  query.selectAll('.tab').boundingClientRect()
+  query.exec((res) => {
+    const inner = res[0]
+    const scroll = res[1]
+    const tabs = res[2] || []
+    if (!inner || !tabs.length) return
+    tabsInnerLeft.value = inner.left
+    tabScrollLeft.value = scroll?.scrollLeft || 0
+    tabRects.value = tabs
+  })
+}
 
 const themeColor = ref('#6366f1')
 const themeColorRgb = ref('99, 102, 241')
@@ -92,6 +112,44 @@ onShow(() => {
     themeColorRgb.value = hexToRgb(savedColor)
   }
 })
+
+onReady(() => {
+  nextTick(() => {
+    measureTabs()
+  })
+})
+
+const tabUnderlineStyle = computed(() => {
+  const rect = tabRects.value[selectedTab.value]
+  if (!rect) return {}
+  const width = rect.width
+  const left = rect.left - tabsInnerLeft.value + tabScrollLeft.value
+  return {
+    width: `${width}px`,
+    transform: `translateX(${left}px)`
+  }
+})
+
+const onTabsScroll = (e) => {
+  tabScrollLeft.value = e.detail.scrollLeft
+}
+
+const syncTabs = () => {
+  nextTick(() => {
+    measureTabs()
+  })
+}
+
+const selectTab = (idx) => {
+  selectedTab.value = idx
+  syncTabs()
+}
+
+const handleScroll = (e) => {
+  const top = e.detail.scrollTop
+  scrollTop.value = top
+  navOpacity.value = Math.min(1, top / 120)
+}
 
 const bannerList = ref([
   '/static/images/cover-1.jpg',
@@ -118,6 +176,7 @@ const allCards = ref([
     desc: '冷感结构与层次堆叠，让日常也有强烈态度。',
     cover: '/static/images/cover-1.jpg',
     coverHeight: 300,
+    span: 28,
     tag: '机能风',
     views: '12.4k',
     group: 1
@@ -128,6 +187,7 @@ const allCards = ref([
     desc: '灯光色块碰撞，打造高饱和都市氛围。',
     cover: '/static/images/cover-2.jpg',
     coverHeight: 260,
+    span: 24,
     tag: '热榜',
     views: '9.1k',
     group: 2
@@ -138,6 +198,7 @@ const allCards = ref([
     desc: '柔和颗粒感的光影，让瞬间更有温度。',
     cover: '/static/images/cover-3.jpg',
     coverHeight: 340,
+    span: 32,
     tag: '摄影',
     views: '7.8k',
     group: 5
@@ -148,6 +209,7 @@ const allCards = ref([
     desc: '留白与秩序感，让空间呼吸。',
     cover: '/static/images/cover-4.jpg',
     coverHeight: 280,
+    span: 26,
     tag: '生活',
     views: '5.3k',
     group: 6
@@ -158,6 +220,7 @@ const allCards = ref([
     desc: '低饱和冷调，城市角落也能浪漫。',
     cover: '/static/images/cover-5.jpg',
     coverHeight: 320,
+    span: 30,
     tag: '治愈',
     views: '6.7k',
     group: 7
@@ -168,6 +231,7 @@ const allCards = ref([
     desc: '几何线条与光影的秩序美学。',
     cover: '/static/images/cover-6.jpg',
     coverHeight: 260,
+    span: 24,
     tag: '建筑',
     views: '4.6k',
     group: 4
@@ -192,30 +256,10 @@ const navStyle = computed(() => {
   }
 })
 
-const tabUnderlineStyle = computed(() => {
-  const width = 56
-  const gap = 32
-  const left = selectedTab.value * (width + gap)
-  return {
-    width: `${width}rpx`,
-    transform: `translateX(${left}rpx)`
-  }
-})
-
 const isRefreshing = ref(false)
 const isLoading = ref(false)
 const noMore = ref(false)
 let page = 1
-
-const handleScroll = (e) => {
-  const top = e.detail.scrollTop
-  scrollTop.value = top
-  navOpacity.value = Math.min(1, top / 120)
-}
-
-const selectTab = (idx) => {
-  selectedTab.value = idx
-}
 
 const onPullRefresh = () => {
   if (isRefreshing.value) return
@@ -362,11 +406,19 @@ const goSetting = () => {
 .tab-underline {
   position: absolute;
   bottom: 14rpx;
-  left: 24rpx;
+  left: 0;
   height: 6rpx;
   border-radius: 999rpx;
   background: var(--main-color);
   transition: transform 0.3s ease;
+}
+
+.tab-item {
+  align-self: start;
+}
+
+.card-item {
+  align-self: start;
 }
 
 .grid {
@@ -374,12 +426,17 @@ const goSetting = () => {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20rpx;
+  grid-auto-rows: 10rpx;
 }
 
 .card-item {
   opacity: 0;
   transform: translateY(20rpx);
   animation: card-enter 0.6s ease forwards;
+}
+
+.card {
+  width: 100%;
 }
 
 .card-item:active {
