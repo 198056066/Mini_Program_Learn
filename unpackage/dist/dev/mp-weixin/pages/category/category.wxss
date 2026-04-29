@@ -3,10 +3,13 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background: #f7f8fa;
 }
 .nav.data-v-8145b772 {
   padding: 80rpx 32rpx 20rpx;
   background: #fff;
+  box-shadow: 0 6rpx 24rpx rgba(0, 0, 0, 0.06);
+  border-radius: 0 0 24rpx 24rpx;
 }
 .title.data-v-8145b772 {
   font-size: 34rpx;
@@ -14,47 +17,157 @@
 }
 .content.data-v-8145b772 {
   flex: 1;
-  display: grid;
-  grid-template-columns: 200rpx 1fr;
+  display: flex;
+  min-height: 0;
 }
 .left.data-v-8145b772 {
-  background: #fff;
-  padding: 24rpx 0;
+  width: 200rpx;
+  background: #f7f8fa;
+  padding: 20rpx 0;
+  box-shadow: inset -1rpx 0 0 rgba(0, 0, 0, 0.05);
 }
-.item.data-v-8145b772 {
-  padding: 20rpx 24rpx;
-  color: var(--text-light);
+.left-header.data-v-8145b772 {
+  padding: 0 20rpx 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-.item.active.data-v-8145b772 {
-  color: var(--main-color);
+.left-title.data-v-8145b772 {
+  font-size: 26rpx;
+  color: #333;
   font-weight: 600;
+}
+.left-arrow.data-v-8145b772 {
+  font-size: 24rpx;
+  transition: transform 0.3s ease;
+}
+.left-arrow.rotate.data-v-8145b772 {
+  transform: rotate(180deg);
+}
+.left-list.data-v-8145b772 {
+  transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
+  max-height: 1000rpx;
+  opacity: 1;
+}
+.left-list.collapsed.data-v-8145b772 {
+  max-height: 0;
+  opacity: 0;
+}
+.left-item.data-v-8145b772 {
+  height: 88rpx;
+  padding: 0 20rpx;
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  color: #666;
+  position: relative;
+  transition: all 0.3s ease;
+}
+.active-bar.data-v-8145b772 {
+  width: 6rpx;
+  height: 32rpx;
+  border-radius: 999rpx;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+.left-item.active.data-v-8145b772 {
+  color: var(--main-color);
+  background: rgba(var(--main-color-rgb), 0.08);
+}
+.left-item.active .active-bar.data-v-8145b772 {
+  background: var(--main-color);
+}
+.left-text.data-v-8145b772 {
+  flex: 1;
+  font-size: 26rpx;
 }
 .right.data-v-8145b772 {
+  flex: 1;
+  background: #fff;
   padding: 24rpx;
-  display: flex;
-  flex-direction: column;
-  gap: 20rpx;
 }
-.card.data-v-8145b772 {
-  display: flex;
-  gap: 16rpx;
-  padding: 16rpx;
+.right-header.data-v-8145b772 {
+  margin-bottom: 20rpx;
 }
-.thumb.data-v-8145b772 {
-  width: 160rpx;
-  height: 160rpx;
+.right-title.data-v-8145b772 {
+  font-size: 30rpx;
+  font-weight: 700;
+}
+.right-sub.data-v-8145b772 {
+  margin-top: 8rpx;
+  color: #999;
+  font-size: 22rpx;
+}
+.module.data-v-8145b772 {
+  background: #fff;
   border-radius: 16rpx;
+  box-shadow: 0 8rpx 20rpx rgba(0, 0, 0, 0.06);
+  padding: 16rpx;
+  margin-bottom: 20rpx;
+  opacity: 0;
+  transform: translateY(16rpx);
+  animation: module-enter-8145b772 0.6s ease forwards;
 }
-.info.data-v-8145b772 {
+.module-header.data-v-8145b772 {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 8rpx;
+  align-items: center;
+  justify-content: space-between;
 }
-.name.data-v-8145b772 {
+.module-title.data-v-8145b772 {
+  font-size: 28rpx;
   font-weight: 600;
 }
-.desc.data-v-8145b772 {
-  color: var(--text-light);
+.module-arrow.data-v-8145b772 {
+  transition: transform 0.3s ease;
+}
+.module-arrow.rotate.data-v-8145b772 {
+  transform: rotate(180deg);
+}
+.module-body.data-v-8145b772 {
+  margin-top: 16rpx;
+  transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
+  max-height: 1000rpx;
+  opacity: 1;
+  overflow: hidden;
+}
+.module-body.collapsed.data-v-8145b772 {
+  max-height: 0;
+  opacity: 0;
+}
+.grid.data-v-8145b772 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16rpx;
+}
+.grid-item.data-v-8145b772 {
+  background: #f7f8fa;
+  border-radius: 16rpx;
+  padding: 16rpx 8rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10rpx;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.grid-item.data-v-8145b772:active {
+  transform: scale(0.95);
+  box-shadow: 0 10rpx 20rpx rgba(0, 0, 0, 0.08);
+}
+.grid-icon.data-v-8145b772 {
+  font-size: 40rpx;
+}
+.grid-text.data-v-8145b772 {
   font-size: 24rpx;
+  color: #333;
+}
+@keyframes module-enter-8145b772 {
+from {
+    opacity: 0;
+    transform: translateY(16rpx);
+}
+to {
+    opacity: 1;
+    transform: translateY(0);
+}
 }
