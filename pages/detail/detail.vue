@@ -21,15 +21,10 @@
 
 <script setup>
 import { ref } from 'vue'
-import { onLoad } from '@dcloudio/uni-app'
 import { detailMap } from '@/data/detail'
 
 const detail = ref({
-  title: '',
-  author: '',
-  time: '',
-  desc: '',
-  cover: '',
+  ...detailMap[1],
   collected: false
 })
 
@@ -40,14 +35,6 @@ const goBack = () => {
 const toggleCollect = () => {
   detail.value.collected = !detail.value.collected
 }
-
-onLoad((query) => {
-  const id = query && query.id ? query.id : 1
-  detail.value = {
-    ...detailMap[id],
-    collected: false
-  }
-})
 </script>
 
 <style scoped>
