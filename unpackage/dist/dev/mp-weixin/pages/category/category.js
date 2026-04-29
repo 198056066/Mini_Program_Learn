@@ -6,10 +6,20 @@ const _sfc_main = {
   setup(__props) {
     const list = data_category.categoryList;
     const themeColor = common_vendor.ref("#6366f1");
+    const themeColorRgb = common_vendor.ref("99, 102, 241");
+    const hexToRgb = (hex) => {
+      const value = hex.replace("#", "");
+      const r = parseInt(value.slice(0, 2), 16);
+      const g = parseInt(value.slice(2, 4), 16);
+      const b = parseInt(value.slice(4, 6), 16);
+      return `${r}, ${g}, ${b}`;
+    };
     common_vendor.onShow(() => {
       const savedColor = common_vendor.index.getStorageSync("themeColor");
-      if (savedColor)
+      if (savedColor) {
         themeColor.value = savedColor;
+        themeColorRgb.value = hexToRgb(savedColor);
+      }
     });
     return (_ctx, _cache) => {
       return {
@@ -21,7 +31,8 @@ const _sfc_main = {
             d: item.id
           };
         }),
-        b: themeColor.value
+        b: themeColor.value,
+        c: themeColorRgb.value
       };
     };
   }

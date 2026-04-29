@@ -56,9 +56,11 @@
   background: var(--main-color);
   color: #fff;
   font-size: 28rpx;
+  box-shadow: 0 8rpx 20rpx rgba(var(--main-color-rgb), 0.25);
 }
 .btn.ghost.data-v-eca06f3c {
   background: #fff;
   color: var(--main-color);
-  border: 2rpx solid rgba(99, 102, 241, 0.3);
+  border: 2rpx solid rgba(var(--main-color-rgb), 0.3);
+  box-shadow: none;
 }

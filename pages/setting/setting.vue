@@ -1,5 +1,5 @@
 <template>
-  <view class="page">
+  <view class="page" :style="{ '--main-color': themeColor, '--main-color-rgb': themeColorRgb }">
     <!-- 顶部导航：返回 + 标题 + 确认 -->
     <view class="nav">
       <button class="nav-btn" @tap="goBack">返回</button>
@@ -49,11 +49,23 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { onLoad } from '@dcloudio/uni-app'
+import { ref, computed } from 'vue'
+import { onLoad, onShow } from '@dcloudio/uni-app'
 
 // 当前选中的主题色
 const selectedColor = ref('#6366f1')
+
+const themeColor = computed(() => selectedColor.value)
+// 主题色 RGB
+const themeColorRgb = ref('99, 102, 241')
+
+const hexToRgb = (hex) => {
+  const value = hex.replace('#', '')
+  const r = parseInt(value.slice(0, 2), 16)
+  const g = parseInt(value.slice(2, 4), 16)
+  const b = parseInt(value.slice(4, 6), 16)
+  return `${r}, ${g}, ${b}`
+}
 // 动画强度
 const motion = ref(60)
 
@@ -61,14 +73,26 @@ const motion = ref(60)
 onLoad(() => {
   const savedColor = uni.getStorageSync('themeColor')
   const savedMotion = uni.getStorageSync('motionStrength')
-  if (savedColor) selectedColor.value = savedColor
+  if (savedColor) {
+    selectedColor.value = savedColor
+    themeColorRgb.value = hexToRgb(savedColor)
+  }
   if (typeof savedMotion === 'number') motion.value = savedMotion
+})
+
+onShow(() => {
+  const savedColor = uni.getStorageSync('themeColor')
+  if (savedColor) {
+    selectedColor.value = savedColor
+    themeColorRgb.value = hexToRgb(savedColor)
+  }
 })
 
 // 选择主题色（仅更新状态，不立即保存）
 const setColor = (e) => {
   const color = e.currentTarget.dataset.color
   selectedColor.value = color
+  themeColorRgb.value = hexToRgb(color)
 }
 
 // 改变动画强度
@@ -96,6 +120,11 @@ const onConfirm = () => {
 
 <style scoped>
 .page {
+  --main-color: v-bind(themeColor);
+  --main-color-rgb: v-bind(themeColorRgb);
+}
+
+.page {
   min-height: 100vh;
   padding: 80rpx 32rpx 40rpx;
   box-sizing: border-box;
@@ -120,13 +149,16 @@ const onConfirm = () => {
   padding: 0 24rpx;
   border-radius: 999rpx;
   background: #f2f3f5;
-  color: #333;
+  color: var(--main-color);
   font-size: 24rpx;
+  border: 2rpx solid rgba(var(--main-color-rgb), 0.25);
+  text-align: center;
 }
 
 .nav-btn.primary {
   background: var(--main-color);
   color: #fff;
+  box-shadow: 0 8rpx 20rpx rgba(var(--main-color-rgb), 0.25);
 }
 
 .title {
@@ -163,6 +195,6 @@ const onConfirm = () => {
 /* 选中态：外圈高亮 + 轻微放大 */
 .color.active {
   transform: scale(1.08);
-  box-shadow: 0 0 0 6rpx rgba(99, 102, 241, 0.25);
+  box-shadow: 0 0 0 6rpx rgba(var(--main-color-rgb), 0.25);
 }
 </style>

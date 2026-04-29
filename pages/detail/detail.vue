@@ -1,5 +1,5 @@
 <template>
-  <view class="page" :style="{ '--main-color': themeColor }">
+  <view class="page" :style="{ '--main-color': themeColor, '--main-color-rgb': themeColorRgb }">
     <view class="nav">
       <view class="back" @tap="goBack">返回</view>
       <view class="title">内容详情</view>
@@ -21,22 +21,37 @@
 
 <script setup>
 import { ref } from 'vue'
-import { onLoad } from '@dcloudio/uni-app'
+import { onLoad, onShow } from '@dcloudio/uni-app'
 import { detailMap } from '@/data/detail'
 
 const themeColor = ref('#6366f1')
+const themeColorRgb = ref('99, 102, 241')
 const detail = ref({
   ...detailMap[1],
   collected: false
 })
 
+const hexToRgb = (hex) => {
+  const value = hex.replace('#', '')
+  const r = parseInt(value.slice(0, 2), 16)
+  const g = parseInt(value.slice(2, 4), 16)
+  const b = parseInt(value.slice(4, 6), 16)
+  return `${r}, ${g}, ${b}`
+}
+
 onLoad((query) => {
   const id = Number(query?.id || 1)
-  const savedColor = uni.getStorageSync('themeColor')
-  if (savedColor) themeColor.value = savedColor
   detail.value = {
     ...(detailMap[id] || detailMap[1]),
     collected: detail.value.collected || false
+  }
+})
+
+onShow(() => {
+  const savedColor = uni.getStorageSync('themeColor')
+  if (savedColor) {
+    themeColor.value = savedColor
+    themeColorRgb.value = hexToRgb(savedColor)
   }
 })
 
@@ -118,11 +133,13 @@ const toggleCollect = () => {
   background: var(--main-color);
   color: #fff;
   font-size: 28rpx;
+  box-shadow: 0 8rpx 20rpx rgba(var(--main-color-rgb), 0.25);
 }
 
 .btn.ghost {
   background: #fff;
   color: var(--main-color);
-  border: 2rpx solid rgba(99, 102, 241, 0.3);
+  border: 2rpx solid rgba(var(--main-color-rgb), 0.3);
+  box-shadow: none;
 }
 </style>

@@ -1,5 +1,9 @@
 
 .page.data-v-018cdf56 {
+  --main-color: var(--48a0885f);
+  --main-color-rgb: var(--9d423024);
+}
+.page.data-v-018cdf56 {
   min-height: 100vh;
   padding: 80rpx 32rpx 40rpx;
   box-sizing: border-box;
@@ -22,12 +26,15 @@
   padding: 0 24rpx;
   border-radius: 999rpx;
   background: #f2f3f5;
-  color: #333;
+  color: var(--main-color);
   font-size: 24rpx;
+  border: 2rpx solid rgba(var(--main-color-rgb), 0.25);
+  text-align: center;
 }
 .nav-btn.primary.data-v-018cdf56 {
   background: var(--main-color);
   color: #fff;
+  box-shadow: 0 8rpx 20rpx rgba(var(--main-color-rgb), 0.25);
 }
 .title.data-v-018cdf56 {
   font-size: 32rpx;
@@ -59,5 +66,5 @@
 /* 选中态：外圈高亮 + 轻微放大 */
 .color.active.data-v-018cdf56 {
   transform: scale(1.08);
-  box-shadow: 0 0 0 6rpx rgba(99, 102, 241, 0.25);
+  box-shadow: 0 0 0 6rpx rgba(var(--main-color-rgb), 0.25);
 }

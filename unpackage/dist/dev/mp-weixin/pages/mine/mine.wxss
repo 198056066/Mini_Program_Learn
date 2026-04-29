@@ -17,7 +17,11 @@
   width: 140rpx;
   height: 140rpx;
   border-radius: 50%;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  background: linear-gradient(
+    135deg,
+    var(--main-color),
+    rgba(var(--main-color-rgb), 0.65)
+  );
 }
 .name.data-v-7c2ebfa5 {
   font-size: 32rpx;

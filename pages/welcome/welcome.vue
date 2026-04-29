@@ -1,6 +1,10 @@
 <template>
   <!-- 启动页整体容器：全屏渐变 + 入场动画 -->
-  <view class="page" :class="{ 'is-enter': isEnter }">
+  <view
+  class="page"
+  :class="{ 'is-enter': isEnter }"
+  :style="{ '--main-color': themeColor, '--main-color-rgb': themeColorRgb }"
+>
     <!-- 内容区：垂直/水平居中 -->
     <view class="content">
       <!-- 顶部标题区 -->
@@ -40,12 +44,20 @@ export default {
       // 页面入场开关：onShow 置为 true 触发淡入
       isEnter: false,
       // 标题拆分为字符数组，便于逐字动画
-      titleChars: '欢迎来到灵感画报'.split('')
+      titleChars: '欢迎来到灵感画报'.split(''),
+      // 主题色与 RGB 变量
+      themeColor: '#6366f1',
+      themeColorRgb: '99, 102, 241'
     }
   },
   onShow() {
     // 页面显示时触发入场动画
     this.isEnter = true
+    const savedColor = uni.getStorageSync('themeColor')
+    if (savedColor) {
+      this.themeColor = savedColor
+      this.themeColorRgb = this.hexToRgb(savedColor)
+    }
   },
   methods: {
     // 点击跳转首页
@@ -59,6 +71,14 @@ export default {
       uni.navigateTo({
         url: '/pages/setting/setting'
       })
+    },
+    // 将 #RRGGBB 转成 "r, g, b" 字符串，用于 rgba
+    hexToRgb(hex) {
+      const value = hex.replace('#', '')
+      const r = parseInt(value.slice(0, 2), 16)
+      const g = parseInt(value.slice(2, 4), 16)
+      const b = parseInt(value.slice(4, 6), 16)
+      return `${r}, ${g}, ${b}`
     }
   }
 }
@@ -72,7 +92,12 @@ export default {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(180deg, #6d83ff 0%, #9da8ff 40%, #f5f6ff 100%);
+  background: linear-gradient(
+    180deg,
+    var(--main-color) 0%,
+    rgba(var(--main-color-rgb), 0.45) 45%,
+    #f5f6ff 100%
+  );
   opacity: 0;
   transform: translateY(20rpx);
 }
@@ -158,8 +183,8 @@ export default {
   font-size: 30rpx;
   font-weight: 600;
   color: #ffffff;
-  background: #4f5dff;
-  box-shadow: 0 10rpx 30rpx rgba(79, 93, 255, 0.35);
+  background: var(--main-color);
+  box-shadow: 0 10rpx 30rpx rgba(var(--main-color-rgb), 0.35);
   animation: btn-breathe 1.8s ease-in-out infinite;
   transition: transform 0.15s ease;
 }
@@ -174,9 +199,9 @@ export default {
   height: 88rpx;
   border-radius: 20rpx;
   font-size: 28rpx;
-  color: #4f5dff;
+  color: var(--main-color);
   background: rgba(255, 255, 255, 0.9);
-  border: 2rpx solid rgba(79, 93, 255, 0.25);
+  border: 2rpx solid rgba(var(--main-color-rgb), 0.25);
   transition: transform 0.15s ease;
 }
 
@@ -225,11 +250,11 @@ export default {
   0%,
   100% {
     transform: scale(1);
-    box-shadow: 0 10rpx 30rpx rgba(79, 93, 255, 0.35);
+    box-shadow: 0 10rpx 30rpx rgba(var(--main-color-rgb), 0.35);
   }
   50% {
     transform: scale(1.03);
-    box-shadow: 0 14rpx 40rpx rgba(79, 93, 255, 0.45);
+    box-shadow: 0 14rpx 40rpx rgba(var(--main-color-rgb), 0.45);
   }
 }
 </style>

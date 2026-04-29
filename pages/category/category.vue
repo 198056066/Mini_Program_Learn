@@ -1,5 +1,5 @@
 <template>
-  <view class="page" :style="{ '--main-color': themeColor }">
+  <view class="page" :style="{ '--main-color': themeColor, '--main-color-rgb': themeColorRgb }">
     <view class="nav">
       <view class="title">分类</view>
     </view>
@@ -31,10 +31,22 @@ import { categoryList } from '@/data/category'
 
 const list = categoryList
 const themeColor = ref('#6366f1')
+const themeColorRgb = ref('99, 102, 241')
+
+const hexToRgb = (hex) => {
+  const value = hex.replace('#', '')
+  const r = parseInt(value.slice(0, 2), 16)
+  const g = parseInt(value.slice(2, 4), 16)
+  const b = parseInt(value.slice(4, 6), 16)
+  return `${r}, ${g}, ${b}`
+}
 
 onShow(() => {
   const savedColor = uni.getStorageSync('themeColor')
-  if (savedColor) themeColor.value = savedColor
+  if (savedColor) {
+    themeColor.value = savedColor
+    themeColorRgb.value = hexToRgb(savedColor)
+  }
 })
 </script>
 

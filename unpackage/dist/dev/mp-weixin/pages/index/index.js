@@ -5,10 +5,20 @@ const _sfc_main = {
   __name: "index",
   setup(__props) {
     const themeColor = common_vendor.ref("#6366f1");
+    const themeColorRgb = common_vendor.ref("99, 102, 241");
+    const hexToRgb = (hex) => {
+      const value = hex.replace("#", "");
+      const r = parseInt(value.slice(0, 2), 16);
+      const g = parseInt(value.slice(2, 4), 16);
+      const b = parseInt(value.slice(4, 6), 16);
+      return `${r}, ${g}, ${b}`;
+    };
     common_vendor.onShow(() => {
       const savedColor = common_vendor.index.getStorageSync("themeColor");
-      if (savedColor)
+      if (savedColor) {
         themeColor.value = savedColor;
+        themeColorRgb.value = hexToRgb(savedColor);
+      }
     });
     const goDetail = (id) => {
       common_vendor.index.navigateTo({
@@ -26,7 +36,8 @@ const _sfc_main = {
             e: common_vendor.o(($event) => goDetail(item.id), item.id)
           };
         }),
-        b: themeColor.value
+        b: themeColor.value,
+        c: themeColorRgb.value
       };
     };
   }
