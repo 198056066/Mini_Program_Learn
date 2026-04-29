@@ -1,0 +1,28 @@
+{
+  "name": "灵感画报",
+  "appid": "",
+  "description": "图文潮流社区",
+  "versionName": "1.0.0",
+  "versionCode": "100",
+  "transformPx": false,
+    "mp-weixin" : {
+        "appid" : "wxbae34f3648ca3456",
+        "setting" : {
+            "urlCheck" : false,
+            "minified" : true,
+            "es6" : true
+        },
+        "usingComponents" : true,
+        "permission" : {
+            "scope.userLocation" : {
+                "desc" : "你的位置信息将用于小程序位置接口的效果展示"
+            }
+        },
+        "libVersion" : "latest",
+        "requiredPrivateInfos" : [ "getLocation" ],
+        "lazyCodeLoading" : "requiredComponents",
+        "optimization" : {
+            "subpackages" : true
+        }
+    }
+}
