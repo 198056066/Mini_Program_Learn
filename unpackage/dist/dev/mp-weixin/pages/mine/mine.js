@@ -20,7 +20,7 @@ const _sfc_main = {
       }
     });
     const goCollect = () => {
-      common_vendor.index.navigateTo({
+      common_vendor.index.switchTab({
         url: "/pages/collect/collect"
       });
     };

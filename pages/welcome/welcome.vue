@@ -62,7 +62,7 @@ export default {
   methods: {
     // 点击跳转首页
     goIndex() {
-      uni.navigateTo({
+      uni.switchTab({
         url: '/pages/index/index'
       })
     },

@@ -23,7 +23,7 @@ const _sfc_main = {
   methods: {
     // 点击跳转首页
     goIndex() {
-      common_vendor.index.navigateTo({
+      common_vendor.index.switchTab({
         url: "/pages/index/index"
       });
     },

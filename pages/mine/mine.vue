@@ -50,7 +50,7 @@ onShow(() => {
 })
 
 const goCollect = () => {
-  uni.navigateTo({
+  uni.switchTab({
     url: '/pages/collect/collect'
   })
 }

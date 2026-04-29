@@ -3,26 +3,112 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background: #f5f5f5;
 }
 .nav.data-v-b24c290b {
   padding: 80rpx 32rpx 20rpx;
   background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .title.data-v-b24c290b {
   font-size: 34rpx;
   font-weight: 700;
 }
+.layout-toggle.data-v-b24c290b {
+  height: 56rpx;
+  padding: 0 10rpx;
+  border-radius: 999rpx;
+  background: #f2f3f5;
+  color: #999;
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  font-size: 28rpx;
+  transition: transform 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+.layout-toggle.data-v-b24c290b:active {
+  transform: scale(0.9);
+}
+.layout-icon.data-v-b24c290b {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+.layout-icon.active.data-v-b24c290b {
+  color: var(--main-color);
+  background: rgba(var(--main-color-rgb), 0.15);
+}
 .list.data-v-b24c290b {
   flex: 1;
   padding: 24rpx;
+  transition: all 0.3s ease;
+}
+.list.grid.data-v-b24c290b {
+  padding-top: 20rpx;
+}
+.list-layout.data-v-b24c290b {
   display: flex;
   flex-direction: column;
   gap: 20rpx;
+  transition: all 0.3s ease;
 }
-.item.data-v-b24c290b {
+.swipe-item.data-v-b24c290b {
+  position: relative;
+  overflow: hidden;
+}
+.swipe-content.data-v-b24c290b {
+  width: 100%;
+  box-sizing: border-box;
   display: flex;
   gap: 16rpx;
   padding: 16rpx;
+  animation: item-enter-b24c290b 0.6s ease forwards;
+  opacity: 1;
+}
+.swipe-item:not(.deleting) .swipe-content.data-v-b24c290b {
+  animation: none;
+}
+.swipe-content.data-v-b24c290b:active {
+  transform: scale(0.97);
+}
+.swipe-delete.data-v-b24c290b {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 120rpx;
+  height: 100%;
+  background: #ef4444;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  z-index: 1;
+}
+.swipe-item.data-v-b24c290b {
+  position: relative;
+  overflow: hidden;
+  background: #f5f5f5;
+  padding: 8rpx 0;
+}
+.swipe-item .swipe-delete.data-v-b24c290b {
+  top: 8rpx;
+  height: calc(100% - 16rpx);
+  border-radius: 16rpx;
+}
+.swipe-item .swipe-content.data-v-b24c290b {
+  position: relative;
+  z-index: 2;
+}
+.swipe-item.deleting.data-v-b24c290b {
+  animation: item-delete-b24c290b 0.3s ease forwards;
 }
 .thumb.data-v-b24c290b {
   width: 160rpx;
@@ -37,8 +123,102 @@
 }
 .name.data-v-b24c290b {
   font-weight: 600;
+  font-size: 28rpx;
+}
+.desc.data-v-b24c290b {
+  color: #666;
+  font-size: 24rpx;
 }
 .meta.data-v-b24c290b {
-  color: var(--text-light);
-  font-size: 24rpx;
+  color: #999;
+  font-size: 22rpx;
+}
+.grid-layout.data-v-b24c290b {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20rpx;
+  transition: all 0.3s ease;
+}
+.grid-card.data-v-b24c290b {
+  overflow: hidden;
+  animation: item-enter-b24c290b 0.6s ease forwards;
+  opacity: 0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.grid-card.data-v-b24c290b:active {
+  transform: scale(0.97);
+}
+.grid-thumb.data-v-b24c290b {
+  width: 100%;
+  border-radius: 16rpx 16rpx 0 0;
+}
+.grid-info.data-v-b24c290b {
+  padding: 16rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+}
+.empty.data-v-b24c290b {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20rpx;
+  color: #999;
+}
+.empty-icon.data-v-b24c290b {
+  font-size: 64rpx;
+}
+.empty-text.data-v-b24c290b {
+  font-size: 26rpx;
+}
+.empty-btn.data-v-b24c290b {
+  padding: 14rpx 32rpx;
+  background: var(--main-color);
+  color: #fff;
+  border-radius: 999rpx;
+  font-size: 26rpx;
+}
+.empty-btn.data-v-b24c290b:active {
+  transform: scale(0.97);
+}
+.card.data-v-b24c290b {
+  background: #fff;
+  border-radius: 16rpx;
+  box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.08);
+}
+.grid-card.card.data-v-b24c290b {
+  border-radius: 16rpx;
+}
+.swipe-content.card.data-v-b24c290b {
+  border-radius: 16rpx;
+}
+.list.grid .list-layout.data-v-b24c290b,
+.list.grid .grid-layout.data-v-b24c290b {
+  animation: layout-fade-b24c290b 0.3s ease;
+}
+@keyframes layout-fade-b24c290b {
+from {
+    opacity: 0.6;
+}
+to {
+    opacity: 1;
+}
+}
+@keyframes item-enter-b24c290b {
+from {
+    opacity: 0;
+    transform: translateY(12rpx);
+}
+to {
+    opacity: 1;
+    transform: translateY(0);
+}
+}
+@keyframes item-delete-b24c290b {
+to {
+    opacity: 0;
+    transform: scale(0.9);
+}
 }

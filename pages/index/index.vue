@@ -315,6 +315,18 @@ const goCategory = () => {
     url: '/pages/category/category'
   })
 }
+
+const goCollect = () => {
+  uni.switchTab({
+    url: '/pages/collect/collect'
+  })
+}
+
+const goMine = () => {
+  uni.switchTab({
+    url: '/pages/mine/mine'
+  })
+}
 </script>
 
 <style scoped>
