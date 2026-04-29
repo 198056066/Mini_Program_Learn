@@ -1,0 +1,25 @@
+{
+  "pages": [
+    "pages/welcome/welcome",
+    "pages/index/index",
+    "pages/category/category",
+    "pages/detail/detail",
+    "pages/collect/collect",
+    "pages/mine/mine",
+    "pages/setting/setting"
+  ],
+  "subPackages": [],
+  "window": {
+    "backgroundTextStyle": "light"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
+  "requiredPrivateInfos": [
+    "getLocation"
+  ],
+  "lazyCodeLoading": "requiredComponents",
+  "usingComponents": {}
+}
