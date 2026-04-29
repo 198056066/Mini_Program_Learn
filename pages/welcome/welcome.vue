@@ -16,17 +16,20 @@
   </view>
 </template>
 
-<script setup>
-const goIndex = () => {
-  uni.switchTab({
-    url: '/pages/index/index'
-  })
-}
-
-const goSetting = () => {
-  uni.navigateTo({
-    url: '/pages/setting/setting'
-  })
+<script>
+export default {
+  methods: {
+    goIndex() {
+      uni.navigateTo({
+        url: '/pages/index/index'
+      })
+    },
+    goSetting() {
+      uni.navigateTo({
+        url: '/pages/setting/setting'
+      })
+    }
+  }
 }
 </script>
 
