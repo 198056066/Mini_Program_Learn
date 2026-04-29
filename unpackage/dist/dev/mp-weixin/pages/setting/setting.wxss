@@ -11,6 +11,23 @@
   background: #fff;
   padding: 20rpx 24rpx;
   border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+}
+.nav-btn.data-v-018cdf56 {
+  height: 60rpx;
+  line-height: 60rpx;
+  padding: 0 24rpx;
+  border-radius: 999rpx;
+  background: #f2f3f5;
+  color: #333;
+  font-size: 24rpx;
+}
+.nav-btn.primary.data-v-018cdf56 {
+  background: var(--main-color);
+  color: #fff;
 }
 .title.data-v-018cdf56 {
   font-size: 32rpx;
@@ -35,4 +52,12 @@
   width: 64rpx;
   height: 64rpx;
   border-radius: 50%;
+  position: relative;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* 选中态：外圈高亮 + 轻微放大 */
+.color.active.data-v-018cdf56 {
+  transform: scale(1.08);
+  box-shadow: 0 0 0 6rpx rgba(99, 102, 241, 0.25);
 }
