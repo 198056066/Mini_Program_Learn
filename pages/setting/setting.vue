@@ -85,6 +85,10 @@ const goBack = () => {
 const onConfirm = () => {
   uni.setStorageSync('themeColor', selectedColor.value)
   uni.setStorageSync('motionStrength', motion.value)
+  uni.setNavigationBarColor({
+    frontColor: '#ffffff',
+    backgroundColor: selectedColor.value
+  })
   uni.showToast({ title: '已保存', icon: 'success' })
   uni.navigateBack()
 }

@@ -1,5 +1,5 @@
 <template>
-  <view class="page">
+  <view class="page" :style="{ '--main-color': themeColor }">
     <view class="nav">
       <view class="title">灵感画报</view>
       <view class="tabs">
@@ -24,7 +24,16 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
+import { onShow } from '@dcloudio/uni-app'
 import { cards } from '@/data/cards'
+
+const themeColor = ref('#6366f1')
+
+onShow(() => {
+  const savedColor = uni.getStorageSync('themeColor')
+  if (savedColor) themeColor.value = savedColor
+})
 
 const goDetail = (id) => {
   uni.navigateTo({
@@ -32,6 +41,7 @@ const goDetail = (id) => {
   })
 }
 </script>
+
 
 <style scoped>
 .page {

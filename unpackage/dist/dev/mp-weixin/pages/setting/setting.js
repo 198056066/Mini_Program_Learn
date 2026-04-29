@@ -26,6 +26,10 @@ const _sfc_main = {
     const onConfirm = () => {
       common_vendor.index.setStorageSync("themeColor", selectedColor.value);
       common_vendor.index.setStorageSync("motionStrength", motion.value);
+      common_vendor.index.setNavigationBarColor({
+        frontColor: "#ffffff",
+        backgroundColor: selectedColor.value
+      });
       common_vendor.index.showToast({ title: "已保存", icon: "success" });
       common_vendor.index.navigateBack();
     };

@@ -1,5 +1,5 @@
 <template>
-  <view class="page">
+  <view class="page" :style="{ '--main-color': themeColor }">
     <view class="nav">
       <view class="title">我的收藏</view>
     </view>
@@ -16,9 +16,17 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
+import { onShow } from '@dcloudio/uni-app'
 import { collectList } from '@/data/collect'
 
 const list = collectList
+const themeColor = ref('#6366f1')
+
+onShow(() => {
+  const savedColor = uni.getStorageSync('themeColor')
+  if (savedColor) themeColor.value = savedColor
+})
 </script>
 
 <style scoped>

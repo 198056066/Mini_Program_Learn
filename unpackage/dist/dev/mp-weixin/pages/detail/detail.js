@@ -4,9 +4,20 @@ const data_detail = require("../../data/detail.js");
 const _sfc_main = {
   __name: "detail",
   setup(__props) {
+    const themeColor = common_vendor.ref("#6366f1");
     const detail = common_vendor.ref({
       ...data_detail.detailMap[1],
       collected: false
+    });
+    common_vendor.onLoad((query) => {
+      const id = Number((query == null ? void 0 : query.id) || 1);
+      const savedColor = common_vendor.index.getStorageSync("themeColor");
+      if (savedColor)
+        themeColor.value = savedColor;
+      detail.value = {
+        ...data_detail.detailMap[id] || data_detail.detailMap[1],
+        collected: detail.value.collected || false
+      };
     });
     const goBack = () => {
       common_vendor.index.navigateBack();
@@ -16,14 +27,15 @@ const _sfc_main = {
     };
     return (_ctx, _cache) => {
       return {
-        a: common_vendor.o(goBack, "b4"),
+        a: common_vendor.o(goBack, "f6"),
         b: detail.value.cover,
         c: common_vendor.t(detail.value.title),
         d: common_vendor.t(detail.value.author),
         e: common_vendor.t(detail.value.time),
         f: common_vendor.t(detail.value.desc),
         g: common_vendor.t(detail.value.collected ? "已收藏" : "收藏"),
-        h: common_vendor.o(toggleCollect, "b2")
+        h: common_vendor.o(toggleCollect, "7c"),
+        i: themeColor.value
       };
     };
   }

@@ -1,5 +1,5 @@
 <template>
-  <view class="page">
+  <view class="page" :style="{ '--main-color': themeColor }">
     <view class="nav">
       <view class="back" @tap="goBack">返回</view>
       <view class="title">内容详情</view>
@@ -21,11 +21,23 @@
 
 <script setup>
 import { ref } from 'vue'
+import { onLoad } from '@dcloudio/uni-app'
 import { detailMap } from '@/data/detail'
 
+const themeColor = ref('#6366f1')
 const detail = ref({
   ...detailMap[1],
   collected: false
+})
+
+onLoad((query) => {
+  const id = Number(query?.id || 1)
+  const savedColor = uni.getStorageSync('themeColor')
+  if (savedColor) themeColor.value = savedColor
+  detail.value = {
+    ...(detailMap[id] || detailMap[1]),
+    collected: detail.value.collected || false
+  }
 })
 
 const goBack = () => {

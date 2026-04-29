@@ -3,6 +3,12 @@ const common_vendor = require("../../common/vendor.js");
 const _sfc_main = {
   __name: "mine",
   setup(__props) {
+    const themeColor = common_vendor.ref("#6366f1");
+    common_vendor.onShow(() => {
+      const savedColor = common_vendor.index.getStorageSync("themeColor");
+      if (savedColor)
+        themeColor.value = savedColor;
+    });
     const goCollect = () => {
       common_vendor.index.navigateTo({
         url: "/pages/collect/collect"
@@ -15,8 +21,9 @@ const _sfc_main = {
     };
     return (_ctx, _cache) => {
       return {
-        a: common_vendor.o(goCollect, "01"),
-        b: common_vendor.o(goSetting, "4c")
+        a: common_vendor.o(goCollect, "d4"),
+        b: common_vendor.o(goSetting, "de"),
+        c: themeColor.value
       };
     };
   }

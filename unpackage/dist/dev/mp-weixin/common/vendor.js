@@ -7957,6 +7957,11 @@ const createSubpackageApp = initCreateSubpackageApp();
 const createLifeCycleHook = (lifecycle, flag = 0) => (hook, target = getCurrentInstance()) => {
   !isInSSRComponentSetup && injectHook(lifecycle, hook, target);
 };
+const onShow = /* @__PURE__ */ createLifeCycleHook(
+  ON_SHOW,
+  1 | 2
+  /* HookFlags.PAGE */
+);
 const onLoad = /* @__PURE__ */ createLifeCycleHook(
   ON_LOAD,
   2
@@ -7968,6 +7973,7 @@ exports.f = f;
 exports.index = index;
 exports.o = o;
 exports.onLoad = onLoad;
+exports.onShow = onShow;
 exports.ref = ref;
 exports.t = t;
 exports.unref = unref;
