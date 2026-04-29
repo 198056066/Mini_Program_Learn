@@ -29,12 +29,21 @@ const _sfc_main = {
         url: "/pages/setting/setting"
       });
     };
+    const noop = () => {
+    };
     return (_ctx, _cache) => {
       return {
-        a: common_vendor.o(goCollect, "0a"),
-        b: common_vendor.o(goSetting, "34"),
-        c: themeColor.value,
-        d: themeColorRgb.value
+        a: common_vendor.o(noop, "77"),
+        b: common_vendor.o(noop, "8f"),
+        c: common_vendor.o(noop, "f6"),
+        d: common_vendor.o(goCollect, "1c"),
+        e: common_vendor.o(goCollect, "96"),
+        f: common_vendor.o(goCollect, "06"),
+        g: common_vendor.o(goSetting, "0b"),
+        h: common_vendor.o(goSetting, "1b"),
+        i: common_vendor.o(noop, "80"),
+        j: themeColor.value,
+        k: themeColorRgb.value
       };
     };
   }
