@@ -1,7 +1,9 @@
 <template>
   <view class="page" :style="{ '--main-color': themeColor, '--main-color-rgb': themeColorRgb }">
     <view class="nav">
+      <view class="nav-btn" @tap="goBack">←</view>
       <view class="title">分类</view>
+      <view class="nav-placeholder"></view>
     </view>
 
     <view class="content">
@@ -272,6 +274,10 @@ const toggleLeft = () => {
 const toggleModule = (module) => {
   module.collapsed = !module.collapsed
 }
+
+const goBack = () => {
+  uni.navigateBack()
+}
 </script>
 
 <style scoped>
@@ -287,6 +293,26 @@ const toggleModule = (module) => {
   background: #fff;
   box-shadow: 0 6rpx 24rpx rgba(0, 0, 0, 0.06);
   border-radius: 0 0 24rpx 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-btn {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(99, 102, 241, 0.12);
+  color: var(--main-color);
+  font-size: 28rpx;
+}
+
+.nav-placeholder {
+  width: 64rpx;
+  height: 64rpx;
 }
 
 .title {

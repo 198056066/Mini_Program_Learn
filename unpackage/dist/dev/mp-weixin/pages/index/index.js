@@ -220,6 +220,11 @@ const _sfc_main = {
         url: "/pages/setting/setting"
       });
     };
+    const goCategory = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/category/category"
+      });
+    };
     return (_ctx, _cache) => {
       return common_vendor.e({
         a: common_vendor.o(goBack, "d2"),
@@ -231,7 +236,8 @@ const _sfc_main = {
             b: idx
           };
         }),
-        e: common_vendor.f(tabList.value, (item, idx, i0) => {
+        e: common_vendor.o(goCategory, "d8"),
+        f: common_vendor.f(tabList.value, (item, idx, i0) => {
           return {
             a: common_vendor.t(item.title),
             b: item.id,
@@ -239,9 +245,9 @@ const _sfc_main = {
             d: common_vendor.o(($event) => selectTab(idx), item.id)
           };
         }),
-        f: common_vendor.s(tabUnderlineStyle.value),
-        g: common_vendor.o(onTabsScroll, "c7"),
-        h: common_vendor.f(filteredCards.value, (item, idx, i0) => {
+        g: common_vendor.s(tabUnderlineStyle.value),
+        h: common_vendor.o(onTabsScroll, "55"),
+        i: common_vendor.f(filteredCards.value, (item, idx, i0) => {
           return {
             a: item.cover,
             b: `${item.coverHeight}rpx`,
@@ -255,16 +261,16 @@ const _sfc_main = {
             j: common_vendor.o(($event) => goDetail(item.id), item.id)
           };
         }),
-        i: isLoading.value
+        j: isLoading.value
       }, isLoading.value ? {} : noMore.value ? {} : {}, {
-        j: noMore.value,
-        k: scrollTop.value,
-        l: common_vendor.o(handleScroll, "b6"),
-        m: isRefreshing.value,
-        n: common_vendor.o(onPullRefresh, "b7"),
-        o: common_vendor.o(onReachBottom, "82"),
-        p: themeColor.value,
-        q: themeColorRgb.value
+        k: noMore.value,
+        l: scrollTop.value,
+        m: common_vendor.o(handleScroll, "b6"),
+        n: isRefreshing.value,
+        o: common_vendor.o(onPullRefresh, "b7"),
+        p: common_vendor.o(onReachBottom, "82"),
+        q: themeColor.value,
+        r: themeColorRgb.value
       });
     };
   }

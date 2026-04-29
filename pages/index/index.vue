@@ -28,6 +28,10 @@
         </swiper>
       </view>
 
+      <view class="quick-actions">
+        <view class="quick-btn" @tap="goCategory">分类页</view>
+      </view>
+
       <scroll-view scroll-x class="tabs" :show-scrollbar="false" @scroll="onTabsScroll">
         <view class="tabs-inner">
           <view
@@ -305,6 +309,12 @@ const goSetting = () => {
     url: '/pages/setting/setting'
   })
 }
+
+const goCategory = () => {
+  uni.navigateTo({
+    url: '/pages/category/category'
+  })
+}
 </script>
 
 <style scoped>
@@ -370,6 +380,29 @@ const goSetting = () => {
 .banner-img {
   width: 100%;
   height: 100%;
+}
+
+.quick-actions {
+  padding: 0 24rpx;
+  margin-top: 16rpx;
+}
+
+.quick-btn {
+  height: 72rpx;
+  border-radius: 16rpx;
+  background: #fff;
+  color: var(--main-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  box-shadow: 0 8rpx 20rpx rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.quick-btn:active {
+  transform: scale(0.97);
+  box-shadow: 0 10rpx 24rpx rgba(0, 0, 0, 0.12);
 }
 
 .tabs {

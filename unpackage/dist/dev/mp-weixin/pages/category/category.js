@@ -206,11 +206,15 @@ const _sfc_main = {
     const toggleModule = (module) => {
       module.collapsed = !module.collapsed;
     };
+    const goBack = () => {
+      common_vendor.index.navigateBack();
+    };
     return (_ctx, _cache) => {
       return {
-        a: leftCollapsed.value ? 1 : "",
-        b: common_vendor.o(toggleLeft, "79"),
-        c: common_vendor.f(menuList.value, (item, idx, i0) => {
+        a: common_vendor.o(goBack, "eb"),
+        b: leftCollapsed.value ? 1 : "",
+        c: common_vendor.o(toggleLeft, "7f"),
+        d: common_vendor.f(menuList.value, (item, idx, i0) => {
           return {
             a: common_vendor.t(item.title),
             b: item.id,
@@ -218,10 +222,10 @@ const _sfc_main = {
             d: common_vendor.o(($event) => selectMenu(idx), item.id)
           };
         }),
-        d: leftCollapsed.value ? 1 : "",
-        e: common_vendor.t(currentCategory.value.title),
-        f: common_vendor.t(currentCategory.value.modules.length),
-        g: common_vendor.f(currentCategory.value.modules, (module, mIndex, i0) => {
+        e: leftCollapsed.value ? 1 : "",
+        f: common_vendor.t(currentCategory.value.title),
+        g: common_vendor.t(currentCategory.value.modules.length),
+        h: common_vendor.f(currentCategory.value.modules, (module, mIndex, i0) => {
           return {
             a: common_vendor.t(module.title),
             b: module.collapsed ? 1 : "",
@@ -238,8 +242,8 @@ const _sfc_main = {
             g: `${mIndex * 0.06}s`
           };
         }),
-        h: themeColor.value,
-        i: themeColorRgb.value
+        i: themeColor.value,
+        j: themeColorRgb.value
       };
     };
   }
