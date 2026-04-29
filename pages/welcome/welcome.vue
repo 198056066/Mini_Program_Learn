@@ -1,29 +1,60 @@
 <template>
-  <view class="page">
-    <view class="hero">
-      <view class="badge">灵感画报</view>
-      <view class="title">图文潮流社区</view>
-      <view class="subtitle">10+ 布局 · 20+ 动画 · 30+ 高频交互</view>
+  <!-- 启动页整体容器：全屏渐变 + 入场动画 -->
+  <view class="page" :class="{ 'is-enter': isEnter }">
+    <!-- 内容区：垂直/水平居中 -->
+    <view class="content">
+      <!-- 顶部标题区 -->
+      <view class="header">
+        <view class="title">
+          <!-- 逐字动画：每个字符单独控制延迟 -->
+          <text
+            v-for="(char, index) in titleChars"
+            :key="index"
+            class="title-char"
+            :style="{ animationDelay: `${index * 0.08}s` }"
+          >
+            {{ char }}
+          </text>
+        </view>
+        <view class="subtitle">解锁布局与动效的灵感画报</view>
+      </view>
+
+      <!-- 中间图标区：轻微上下浮动 -->
+      <view class="icon-wrap">
+        <view class="icon"></view>
+      </view>
     </view>
-    <view class="panel card trans">
-      <view class="panel-title">今日灵感</view>
-      <view class="panel-desc">滑动体验布局与动画</view>
-    </view>
-    <view class="actions">
-      <button class="btn primary" @tap="goIndex">进入社区</button>
-      <button class="btn ghost" @tap="goSetting">主题设置</button>
+
+    <!-- 底部按钮区：固定到底部（使用 margin-top: auto） -->
+    <view class="footer">
+      <button class="start-btn" @tap="goIndex">开始探索</button>
+      <button class="ghost-btn" @tap="goSetting">主题设置</button>
     </view>
   </view>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      // 页面入场开关：onShow 置为 true 触发淡入
+      isEnter: false,
+      // 标题拆分为字符数组，便于逐字动画
+      titleChars: '欢迎来到灵感画报'.split('')
+    }
+  },
+  onShow() {
+    // 页面显示时触发入场动画
+    this.isEnter = true
+  },
   methods: {
+    // 点击跳转首页
     goIndex() {
       uni.navigateTo({
         url: '/pages/index/index'
       })
     },
+    // 点击跳转设置页
     goSetting() {
       uni.navigateTo({
         url: '/pages/setting/setting'
@@ -34,77 +65,171 @@ export default {
 </script>
 
 <style scoped>
+/* 整体容器：全屏渐变 + 初始透明，用于入场动画 */
 .page {
   min-height: 100vh;
   padding: 80rpx 40rpx 60rpx;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 40rpx;
+  background: linear-gradient(180deg, #6d83ff 0%, #9da8ff 40%, #f5f6ff 100%);
+  opacity: 0;
+  transform: translateY(20rpx);
 }
 
-.hero {
+/* 入场动画触发类 */
+.page.is-enter {
+  animation: page-enter 0.6s ease forwards;
+}
+
+/* 内容区：垂直/水平居中 */
+.content {
+  flex: 1;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 48rpx;
+}
+
+/* 标题区：居中对齐 */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 16rpx;
+  text-align: center;
 }
 
-.badge {
-  width: fit-content;
-  padding: 10rpx 20rpx;
-  border-radius: 999rpx;
-  background: rgba(99, 102, 241, 0.12);
-  color: var(--main-color);
-  font-size: 22rpx;
-}
-
+/* 主标题：逐字动画承载容器 */
 .title {
-  font-size: 48rpx;
+  display: flex;
+  gap: 6rpx;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* 单个字符：淡入上移 */
+.title-char {
+  font-size: 52rpx;
   font-weight: 700;
-  color: var(--text-color);
+  color: #ffffff;
+  opacity: 0;
+  animation: title-fade 0.6s ease forwards;
 }
 
+/* 副标题 */
 .subtitle {
-  color: var(--text-light);
   font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.8);
 }
 
-.panel {
-  padding: 32rpx;
+/* 图标容器 */
+.icon-wrap {
+  width: 220rpx;
+  height: 220rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 图标本体：浮动动画 */
+.icon {
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 40rpx;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 12rpx 40rpx rgba(0, 0, 0, 0.15);
+  animation: icon-float 3s ease-in-out infinite;
+}
+
+/* 底部按钮区：贴近底部 */
+.footer {
+  margin-top: auto;
   display: flex;
   flex-direction: column;
-  gap: 12rpx;
+  gap: 20rpx;
 }
 
-.panel-title {
+/* 主按钮：呼吸动画 + 按压缩放 */
+.start-btn {
+  height: 96rpx;
+  border-radius: 20rpx;
   font-size: 30rpx;
   font-weight: 600;
+  color: #ffffff;
+  background: #4f5dff;
+  box-shadow: 0 10rpx 30rpx rgba(79, 93, 255, 0.35);
+  animation: btn-breathe 1.8s ease-in-out infinite;
+  transition: transform 0.15s ease;
 }
 
-.panel-desc {
-  color: var(--text-light);
+/* 按下缩小反馈 */
+.start-btn:active {
+  transform: scale(0.96);
 }
 
-.actions {
-  display: flex;
-  gap: 24rpx;
-}
-
-.btn {
-  flex: 1;
+/* 次按钮：轻量样式 */
+.ghost-btn {
   height: 88rpx;
-  border-radius: 16rpx;
+  border-radius: 20rpx;
   font-size: 28rpx;
+  color: #4f5dff;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2rpx solid rgba(79, 93, 255, 0.25);
+  transition: transform 0.15s ease;
 }
 
-.btn.primary {
-  background: var(--main-color);
-  color: #fff;
+/* 次按钮按压反馈 */
+.ghost-btn:active {
+  transform: scale(0.96);
 }
 
-.btn.ghost {
-  background: #fff;
-  color: var(--main-color);
-  border: 2rpx solid rgba(99, 102, 241, 0.3);
+/* 页面入场动画：淡入 + 上移 */
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(20rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 标题逐字动画 */
+@keyframes title-fade {
+  from {
+    opacity: 0;
+    transform: translateY(10rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 图标浮动动画 */
+@keyframes icon-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10rpx);
+  }
+}
+
+/* 按钮呼吸动画 */
+@keyframes btn-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 10rpx 30rpx rgba(79, 93, 255, 0.35);
+  }
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 14rpx 40rpx rgba(79, 93, 255, 0.45);
+  }
 }
 </style>
