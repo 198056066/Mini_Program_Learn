@@ -52,7 +52,7 @@
           class="card trans card-item"
           v-for="(item, idx) in filteredCards"
           :key="item.id"
-          :style="{ animationDelay: `${idx * 0.06}s`, gridRowEnd: `span ${item.span}` }"
+          :style="{ animationDelay: `${idx * 0.06}s` }"
           @tap="goDetail(item.id)"
         >
           <image class="cover" :src="item.cover" mode="aspectFill" :style="{ height: `${item.coverHeight}rpx` }" />
@@ -458,8 +458,11 @@ const goCategory = () => {
   padding: 24rpx;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20rpx;
-  grid-auto-rows: 10rpx;
+  gap: 12rpx;
+}
+
+.card-item {
+  align-self: start;
 }
 
 .card-item {

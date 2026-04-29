@@ -257,8 +257,7 @@ const _sfc_main = {
             f: common_vendor.t(item.views),
             g: item.id,
             h: `${idx * 0.06}s`,
-            i: `span ${item.span}`,
-            j: common_vendor.o(($event) => goDetail(item.id), item.id)
+            i: common_vendor.o(($event) => goDetail(item.id), item.id)
           };
         }),
         j: isLoading.value

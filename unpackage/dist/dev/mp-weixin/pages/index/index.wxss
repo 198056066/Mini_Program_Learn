@@ -120,8 +120,10 @@
   padding: 24rpx;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20rpx;
-  grid-auto-rows: 10rpx;
+  gap: 12rpx;
+}
+.card-item.data-v-1cf27b2a {
+  align-self: start;
 }
 .card-item.data-v-1cf27b2a {
   opacity: 0;

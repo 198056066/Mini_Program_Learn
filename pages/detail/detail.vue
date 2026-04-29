@@ -1,7 +1,7 @@
 <template>
   <view class="page" :style="{ '--main-color': themeColor, '--main-color-rgb': themeColorRgb }">
     <view class="nav" :style="navStyle">
-      <view class="nav-btn" @tap="goBack">←</view>
+      <view class="nav-btn" :style="navIconStyle" @tap="goBack">←</view>
       <view class="nav-title">内容详情</view>
       <view class="nav-placeholder"></view>
     </view>
@@ -63,6 +63,7 @@
           :class="{ active: timelineVisible }"
           :style="{ animationDelay: `${idx * 0.08}s` }"
         >
+          <view class="timeline-index">{{ idx + 1 }}</view>
           <view class="timeline-dot"></view>
           <view class="timeline-line"></view>
           <view class="timeline-card">
@@ -146,7 +147,7 @@ onShow(() => {
 const scrollTop = ref(0)
 const navOpacity = ref(0)
 const showToTop = ref(false)
-const timelineVisible = ref(false)
+const timelineVisible = ref(true)
 
 const handleScroll = (e) => {
   const top = e.detail.scrollTop
@@ -165,10 +166,20 @@ const navStyle = computed(() => {
   }
 })
 
+const navIconStyle = computed(() => {
+  const alpha = navOpacity.value
+  return {
+    background: alpha > 0.6 ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.2)',
+    borderColor: alpha > 0.6 ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.2)',
+    color: alpha > 0.6 ? '#333' : '#fff'
+  }
+})
+
 const heroStyle = computed(() => {
   const scale = 1.05 + Math.min(scrollTop.value / 1200, 0.05)
   return {
-    transform: `scale(${scale})`
+    transform: `scale(${scale})`,
+    transformOrigin: 'center top'
   }
 })
 
@@ -264,7 +275,7 @@ const goDetail = (id) => {
 
 .content {
   flex: 1;
-  padding-top: 96rpx;
+  padding-top: 0;
   padding-bottom: 140rpx;
 }
 
@@ -272,6 +283,12 @@ const goDetail = (id) => {
   width: 100%;
   height: 480rpx;
   overflow: hidden;
+}
+
+.info {
+  margin: -80rpx 24rpx 24rpx;
+  position: relative;
+  z-index: 2;
 }
 
 .hero {
@@ -413,12 +430,18 @@ const goDetail = (id) => {
 
 .timeline-item {
   position: relative;
-  padding-left: 40rpx;
+  padding-left: 56rpx;
   margin-bottom: 24rpx;
-  opacity: 0;
-  transform: translateX(-20rpx);
-  animation: timeline-enter 0.6s ease forwards;
-  animation-play-state: paused;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.timeline-index {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 20rpx;
+  color: #999;
 }
 
 .timeline-item.active {

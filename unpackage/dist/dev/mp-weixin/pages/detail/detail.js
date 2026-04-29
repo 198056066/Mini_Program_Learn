@@ -32,7 +32,7 @@ const _sfc_main = {
     const scrollTop = common_vendor.ref(0);
     const navOpacity = common_vendor.ref(0);
     const showToTop = common_vendor.ref(false);
-    const timelineVisible = common_vendor.ref(false);
+    const timelineVisible = common_vendor.ref(true);
     const handleScroll = (e) => {
       const top = e.detail.scrollTop;
       scrollTop.value = top;
@@ -49,10 +49,19 @@ const _sfc_main = {
         color
       };
     });
+    const navIconStyle = common_vendor.computed(() => {
+      const alpha = navOpacity.value;
+      return {
+        background: alpha > 0.6 ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.2)",
+        borderColor: alpha > 0.6 ? "rgba(0,0,0,0.08)" : "rgba(255,255,255,0.2)",
+        color: alpha > 0.6 ? "#333" : "#fff"
+      };
+    });
     const heroStyle = common_vendor.computed(() => {
       const scale = 1.05 + Math.min(scrollTop.value / 1200, 0.05);
       return {
-        transform: `scale(${scale})`
+        transform: `scale(${scale})`,
+        transformOrigin: "center top"
       };
     });
     const bodyExpanded = common_vendor.ref(false);
@@ -92,56 +101,58 @@ const _sfc_main = {
     };
     return (_ctx, _cache) => {
       return {
-        a: common_vendor.o(goBack, "d2"),
-        b: common_vendor.s(navStyle.value),
-        c: detail.value.cover,
-        d: common_vendor.s(heroStyle.value),
-        e: common_vendor.o(previewHero, "58"),
-        f: common_vendor.t(detail.value.title),
-        g: detail.value.avatar,
-        h: common_vendor.t(detail.value.author),
-        i: common_vendor.t(detail.value.time),
-        j: common_vendor.f(detail.value.tags, (tag, k0, i0) => {
+        a: common_vendor.s(navIconStyle.value),
+        b: common_vendor.o(goBack, "77"),
+        c: common_vendor.s(navStyle.value),
+        d: detail.value.cover,
+        e: common_vendor.s(heroStyle.value),
+        f: common_vendor.o(previewHero, "8e"),
+        g: common_vendor.t(detail.value.title),
+        h: detail.value.avatar,
+        i: common_vendor.t(detail.value.author),
+        j: common_vendor.t(detail.value.time),
+        k: common_vendor.f(detail.value.tags, (tag, k0, i0) => {
           return {
             a: common_vendor.t(tag),
             b: tag
           };
         }),
-        k: common_vendor.t(detail.value.desc),
-        l: common_vendor.f(detail.value.body.intro, (p, idx, i0) => {
+        l: common_vendor.t(detail.value.desc),
+        m: common_vendor.f(detail.value.body.intro, (p, idx, i0) => {
           return {
             a: common_vendor.t(p),
             b: `intro-${idx}`
           };
         }),
-        m: common_vendor.f(detail.value.body.images, (img, idx, i0) => {
+        n: common_vendor.f(detail.value.body.images, (img, idx, i0) => {
           return {
             a: `img-${idx}`,
             b: img,
             c: common_vendor.o(($event) => previewImage(img), `img-${idx}`)
           };
         }),
-        n: common_vendor.f(detail.value.body.paragraphs, (p, idx, i0) => {
+        o: common_vendor.f(detail.value.body.paragraphs, (p, idx, i0) => {
           return {
             a: common_vendor.t(p),
             b: `p-${idx}`
           };
         }),
-        o: common_vendor.t(detail.value.body.quote),
-        p: common_vendor.t(detail.value.body.highlight),
-        q: !bodyExpanded.value ? 1 : "",
-        r: common_vendor.t(bodyExpanded.value ? "收起全文" : "展开全文"),
-        s: common_vendor.o(toggleBody, "fd"),
-        t: common_vendor.f(detail.value.timeline, (step, idx, i0) => {
+        p: common_vendor.t(detail.value.body.quote),
+        q: common_vendor.t(detail.value.body.highlight),
+        r: !bodyExpanded.value ? 1 : "",
+        s: common_vendor.t(bodyExpanded.value ? "收起全文" : "展开全文"),
+        t: common_vendor.o(toggleBody, "72"),
+        v: common_vendor.f(detail.value.timeline, (step, idx, i0) => {
           return {
-            a: common_vendor.t(step.title),
-            b: common_vendor.t(step.desc),
-            c: step.id,
-            d: `${idx * 0.08}s`
+            a: common_vendor.t(idx + 1),
+            b: common_vendor.t(step.title),
+            c: common_vendor.t(step.desc),
+            d: step.id,
+            e: `${idx * 0.08}s`
           };
         }),
-        v: timelineVisible.value ? 1 : "",
-        w: common_vendor.f(detail.value.related, (item, k0, i0) => {
+        w: timelineVisible.value ? 1 : "",
+        x: common_vendor.f(detail.value.related, (item, k0, i0) => {
           return {
             a: item.cover,
             b: common_vendor.t(item.title),
@@ -149,17 +160,17 @@ const _sfc_main = {
             d: common_vendor.o(($event) => goDetail(item.id), item.id)
           };
         }),
-        x: scrollTop.value,
-        y: common_vendor.o(handleScroll, "54"),
-        z: liked.value ? 1 : "",
-        A: common_vendor.o(toggleLike, "0b"),
-        B: collected.value ? 1 : "",
-        C: common_vendor.o(toggleCollect, "fd"),
-        D: common_vendor.o(share, "40"),
-        E: showToTop.value ? 1 : "",
-        F: common_vendor.o(backToTop, "b5"),
-        G: themeColor.value,
-        H: themeColorRgb.value
+        y: scrollTop.value,
+        z: common_vendor.o(handleScroll, "d8"),
+        A: liked.value ? 1 : "",
+        B: common_vendor.o(toggleLike, "46"),
+        C: collected.value ? 1 : "",
+        D: common_vendor.o(toggleCollect, "47"),
+        E: common_vendor.o(share, "5e"),
+        F: showToTop.value ? 1 : "",
+        G: common_vendor.o(backToTop, "7a"),
+        H: themeColor.value,
+        I: themeColorRgb.value
       };
     };
   }
