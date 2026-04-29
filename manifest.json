@@ -1,12 +1,12 @@
 {
-  "name": "灵感画报",
-  "appid": "",
-  "description": "图文潮流社区",
-  "versionName": "1.0.0",
-  "versionCode": "100",
-  "transformPx": false,
+    "name" : "灵感画报",
+    "appid" : "__UNI__F1933BA",
+    "description" : "图文潮流社区",
+    "versionName" : "1.0.0",
+    "versionCode" : "100",
+    "transformPx" : false,
     "mp-weixin" : {
-        "appid" : "wxbae34f3648ca3456",
+        "appid" : "wx9bbeb5bc490eee9b",
         "setting" : {
             "urlCheck" : false,
             "minified" : true,
