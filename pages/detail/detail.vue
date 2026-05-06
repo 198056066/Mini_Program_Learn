@@ -91,23 +91,21 @@
       </view>
     </scroll-view>
 
-    <view class="collect-ribbons" :class="{ show: collectBurst }">
-      <view class="collect-ribbon-group left">
+    <view class="collect-fireworks" :class="{ show: collectBurst }">
+      <view class="collect-firework-group left">
         <view
-          v-for="(ribbon, idx) in collectRibbonsLeft"
+          v-for="(firework, idx) in collectFireworksLeft"
           :key="`left-${idx}`"
-          class="collect-ribbon"
-          :class="`shape-${ribbon.shape || 'strip'}`"
-          :style="ribbonStyle(ribbon)"
+          class="collect-firework"
+          :style="fireworkStyle(firework)"
         />
       </view>
-      <view class="collect-ribbon-group right">
+      <view class="collect-firework-group right">
         <view
-          v-for="(ribbon, idx) in collectRibbonsRight"
+          v-for="(firework, idx) in collectFireworksRight"
           :key="`right-${idx}`"
-          class="collect-ribbon"
-          :class="`shape-${ribbon.shape || 'strip'}`"
-          :style="ribbonStyle(ribbon)"
+          class="collect-firework"
+          :style="fireworkStyle(firework)"
         />
       </view>
     </view>
@@ -231,7 +229,7 @@ const likeBurstTimer = ref(null)
 const collectBurst = ref(false)
 const collectBurstTimer = ref(null)
 
-const collectRibbonsLeft = [
+const collectFireworksLeft = [
   { offset: 10, width: 10, height: 10, radius: 20, delay: 0, duration: 1240, angle: -26, skew: -6, burstX: 32, apexX: 126, driftX: 78, apexY: 312, fallY: 82, spinMid: -186, spinEnd: -276, color: '#fb7185', shape: 'circle' },
   { offset: 20, width: 14, height: 14, radius: 12, delay: 30, duration: 1320, angle: -18, skew: 8, burstX: 42, apexX: 148, driftX: 94, apexY: 348, fallY: 92, spinMid: -154, spinEnd: -238, color: '#f97316', shape: 'diamond' },
   { offset: 34, width: 18, height: 18, radius: 10, delay: 62, duration: 1380, angle: -14, skew: 10, burstX: 50, apexX: 170, driftX: 112, apexY: 386, fallY: 106, spinMid: -132, spinEnd: -212, color: '#f59e0b', shape: 'triangle' },
@@ -241,7 +239,7 @@ const collectRibbonsLeft = [
   { offset: 84, width: 16, height: 16, radius: 24, delay: 102, duration: 1340, angle: -24, skew: -10, burstX: 40, apexX: 154, driftX: 96, apexY: 362, fallY: 96, spinMid: -166, spinEnd: -248, color: '#0ea5e9', shape: 'circle' }
 ]
 
-const collectRibbonsRight = [
+const collectFireworksRight = [
   { offset: 10, width: 12, height: 12, radius: 20, delay: 20, duration: 1260, angle: 24, skew: 6, burstX: -34, apexX: -130, driftX: -82, apexY: 324, fallY: 84, spinMid: 182, spinEnd: 270, color: '#38bdf8', shape: 'circle' },
   { offset: 24, width: 16, height: 16, radius: 12, delay: 52, duration: 1340, angle: 18, skew: -8, burstX: -46, apexX: -154, driftX: -98, apexY: 366, fallY: 96, spinMid: 152, spinEnd: 236, color: '#3b82f6', shape: 'diamond' },
   { offset: 38, width: 20, height: 20, radius: 10, delay: 8, duration: 1420, angle: 12, skew: 10, burstX: -58, apexX: -182, driftX: -120, apexY: 416, fallY: 116, spinMid: 130, spinEnd: 208, color: '#6366f1', shape: 'triangle' },
@@ -251,23 +249,20 @@ const collectRibbonsRight = [
   { offset: 88, width: 18, height: 18, radius: 22, delay: 58, duration: 1360, angle: 22, skew: -8, burstX: -48, apexX: -160, driftX: -104, apexY: 378, fallY: 100, spinMid: 162, spinEnd: 246, color: '#f472b6', shape: 'circle' }
 ]
 
-const ribbonStyle = (ribbon) => ({
-  '--ribbon-offset': `${ribbon.offset}rpx`,
-  '--ribbon-width': `${ribbon.width}rpx`,
-  '--ribbon-height': `${ribbon.height}rpx`,
-  '--ribbon-radius': `${ribbon.radius}rpx`,
-  '--ribbon-delay': `${ribbon.delay}ms`,
-  '--ribbon-duration': `${ribbon.duration}ms`,
-  '--ribbon-rotate': `${ribbon.angle}deg`,
-  '--ribbon-skew': `${ribbon.skew}deg`,
-  '--ribbon-burst-x': `${ribbon.burstX}rpx`,
-  '--ribbon-apex-x': `${ribbon.apexX}rpx`,
-  '--ribbon-drift-x': `${ribbon.driftX}rpx`,
-  '--ribbon-apex-y': `${ribbon.apexY}rpx`,
-  '--ribbon-fall-y': `${ribbon.fallY}rpx`,
-  '--ribbon-spin-mid': `${ribbon.spinMid}deg`,
-  '--ribbon-spin-end': `${ribbon.spinEnd}deg`,
-  '--ribbon-color': ribbon.color
+const fireworkStyle = (firework) => ({
+  '--firework-offset': `${firework.offset}rpx`,
+  '--firework-size': `${firework.width}rpx`,
+  '--firework-delay': `${firework.delay}ms`,
+  '--firework-duration': `${firework.duration}ms`,
+  '--firework-rotate': `${firework.angle}deg`,
+  '--firework-burst-x': `${firework.burstX}rpx`,
+  '--firework-apex-x': `${firework.apexX}rpx`,
+  '--firework-drift-x': `${firework.driftX}rpx`,
+  '--firework-apex-y': `${firework.apexY}rpx`,
+  '--firework-fall-y': `${firework.fallY}rpx`,
+  '--firework-spin-mid': `${firework.spinMid}deg`,
+  '--firework-spin-end': `${firework.spinEnd}deg`,
+  '--firework-color': firework.color
 })
 
 const likeSparks = [
@@ -658,7 +653,7 @@ const goDetail = (id) => {
   font-size: 24rpx;
 }
 
-.collect-ribbons {
+.collect-fireworks {
   position: fixed;
   left: 0;
   right: 0;
@@ -668,11 +663,11 @@ const goDetail = (id) => {
   opacity: 0;
 }
 
-.collect-ribbons.show {
+.collect-fireworks.show {
   opacity: 1;
 }
 
-.collect-ribbon-group {
+.collect-firework-group {
   position: absolute;
   bottom: 100rpx;
   width: 120rpx;
@@ -681,63 +676,50 @@ const goDetail = (id) => {
   gap: 16rpx;
 }
 
-.collect-ribbon-group.left {
+.collect-firework-group.left {
   left: 0;
   align-items: flex-start;
 }
 
-.collect-ribbon-group.right {
+.collect-firework-group.right {
   right: 0;
   align-items: flex-end;
 }
 
-.collect-ribbon {
-  width: var(--ribbon-width);
-  height: var(--ribbon-height);
-  border-radius: var(--ribbon-radius);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, var(--ribbon-color) 35%, var(--ribbon-color) 100%);
-  transform: translate(0, 0) rotate(var(--ribbon-rotate)) skewY(var(--ribbon-skew));
+.collect-firework {
+  position: relative;
+  width: var(--firework-size);
+  height: var(--firework-size);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.95) 0%, var(--firework-color) 56%, rgba(255, 255, 255, 0.2) 100%);
+  box-shadow: 0 0 8rpx rgba(255, 255, 255, 0.45);
+  transform: translate(0, 0) rotate(var(--firework-rotate)) scale(0.7);
   opacity: 0;
 }
 
-.collect-ribbon.shape-circle {
-  width: calc(var(--ribbon-width) * 1.35);
-  height: calc(var(--ribbon-width) * 1.35);
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.5), var(--ribbon-color) 55%, rgba(0, 0, 0, 0.06) 100%);
-  transform: translate(0, 0) rotate(var(--ribbon-rotate));
+.collect-firework::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--firework-size) * 2.2);
+  height: 2rpx;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), var(--firework-color), rgba(255, 255, 255, 0));
+  transform: translate(-50%, -50%) rotate(calc(var(--firework-rotate) * -1));
+  opacity: 0.55;
 }
 
-.collect-ribbon.shape-diamond {
-  width: calc(var(--ribbon-width) * 1.4);
-  height: calc(var(--ribbon-width) * 1.4);
-  border-radius: 6rpx;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, var(--ribbon-color) 55%, rgba(0, 0, 0, 0.06) 100%);
-  transform: translate(0, 0) rotate(calc(45deg + var(--ribbon-rotate)));
+.collect-fireworks.show .collect-firework {
+  animation: firework-burst var(--firework-duration) cubic-bezier(0.22, 0.58, 0.2, 1);
+  animation-delay: var(--firework-delay);
 }
 
-.collect-ribbon.shape-triangle {
-  width: 0;
-  height: 0;
-  border-left: calc(var(--ribbon-width) * 0.7) solid transparent;
-  border-right: calc(var(--ribbon-width) * 0.7) solid transparent;
-  border-bottom: calc(var(--ribbon-width) * 1.2) solid var(--ribbon-color);
-  background: transparent;
-  border-radius: 0;
-  transform: translate(0, 0) rotate(var(--ribbon-rotate));
+.collect-firework-group.left .collect-firework {
+  margin-left: var(--firework-offset);
 }
 
-.collect-ribbons.show .collect-ribbon {
-  animation: ribbon-ballistic var(--ribbon-duration) cubic-bezier(0.14, 0.78, 0.22, 1);
-  animation-delay: var(--ribbon-delay);
-}
-
-.collect-ribbon-group.left .collect-ribbon {
-  margin-left: var(--ribbon-offset);
-}
-
-.collect-ribbon-group.right .collect-ribbon {
-  margin-right: var(--ribbon-offset);
+.collect-firework-group.right .collect-firework {
+  margin-right: var(--firework-offset);
 }
 
 .action-bar {
@@ -912,29 +894,33 @@ const goDetail = (id) => {
   }
 }
 
-@keyframes ribbon-ballistic {
+@keyframes firework-burst {
   0% {
-    transform: translate(0, 0) rotate(var(--ribbon-rotate)) skewY(var(--ribbon-skew)) scale(0.82);
+    transform: translate(0, 0) rotate(var(--firework-rotate)) scale(0.7);
     opacity: 0;
   }
-  10% {
-    transform: translate(calc(var(--ribbon-burst-x) * 0.55), calc(var(--ribbon-apex-y) * -0.26)) rotate(calc(var(--ribbon-rotate) + var(--ribbon-spin-mid) * 0.2)) skewY(calc(var(--ribbon-skew) * 0.8)) scale(1.04);
+  12% {
+    transform: translate(calc(var(--firework-burst-x) * 0.52), calc(var(--firework-apex-y) * -0.32)) rotate(calc(var(--firework-rotate) + var(--firework-spin-mid) * 0.2)) scale(1.08);
     opacity: 0.95;
   }
-  36% {
-    transform: translate(var(--ribbon-apex-x), calc(var(--ribbon-apex-y) * -1)) rotate(calc(var(--ribbon-rotate) + var(--ribbon-spin-mid))) skewY(calc(var(--ribbon-skew) * 0.6)) scale(1.02);
+  46% {
+    transform: translate(var(--firework-apex-x), calc(var(--firework-apex-y) * -1)) rotate(calc(var(--firework-rotate) + var(--firework-spin-mid))) scale(1.16);
     opacity: 1;
   }
-  68% {
-    transform: translate(calc((var(--ribbon-apex-x) + var(--ribbon-drift-x)) * 0.5), calc(var(--ribbon-apex-y) * -0.5)) rotate(calc(var(--ribbon-rotate) + var(--ribbon-spin-mid) * 1.25)) skewY(var(--ribbon-skew)) scale(0.99);
-    opacity: 0.92;
+  62% {
+    transform: translate(calc((var(--firework-apex-x) + var(--firework-drift-x)) * 0.46), calc(var(--firework-apex-y) * -0.72)) rotate(calc(var(--firework-rotate) + var(--firework-spin-mid) * 1.25)) scale(1.04);
+    opacity: 0.94;
   }
-  90% {
-    transform: translate(var(--ribbon-drift-x), var(--ribbon-fall-y)) rotate(calc(var(--ribbon-rotate) + var(--ribbon-spin-end))) skewY(var(--ribbon-skew)) scale(0.94);
-    opacity: 0.62;
+  78% {
+    transform: translate(calc(var(--firework-drift-x) * 0.78), calc(var(--firework-fall-y) * 0.08)) rotate(calc(var(--firework-rotate) + var(--firework-spin-end) * 0.8)) scale(0.98);
+    opacity: 0.82;
+  }
+  92% {
+    transform: translate(var(--firework-drift-x), calc(var(--firework-fall-y) * 1.18)) rotate(calc(var(--firework-rotate) + var(--firework-spin-end))) scale(0.92);
+    opacity: 0.56;
   }
   100% {
-    transform: translate(calc(var(--ribbon-drift-x) * 1.08), calc(var(--ribbon-fall-y) + 68rpx)) rotate(calc(var(--ribbon-rotate) + var(--ribbon-spin-end) * 1.15)) skewY(var(--ribbon-skew)) scale(0.88);
+    transform: translate(calc(var(--firework-drift-x) * 1.1), calc(var(--firework-fall-y) * 1.9 + 58rpx)) rotate(calc(var(--firework-rotate) + var(--firework-spin-end) * 1.15)) scale(0.84);
     opacity: 0;
   }
 }

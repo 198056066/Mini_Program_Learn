@@ -74,7 +74,7 @@ const _sfc_main = {
     const likeBurstTimer = common_vendor.ref(null);
     const collectBurst = common_vendor.ref(false);
     const collectBurstTimer = common_vendor.ref(null);
-    const collectRibbonsLeft = [
+    const collectFireworksLeft = [
       { offset: 10, width: 10, height: 10, radius: 20, delay: 0, duration: 1240, angle: -26, skew: -6, burstX: 32, apexX: 126, driftX: 78, apexY: 312, fallY: 82, spinMid: -186, spinEnd: -276, color: "#fb7185", shape: "circle" },
       { offset: 20, width: 14, height: 14, radius: 12, delay: 30, duration: 1320, angle: -18, skew: 8, burstX: 42, apexX: 148, driftX: 94, apexY: 348, fallY: 92, spinMid: -154, spinEnd: -238, color: "#f97316", shape: "diamond" },
       { offset: 34, width: 18, height: 18, radius: 10, delay: 62, duration: 1380, angle: -14, skew: 10, burstX: 50, apexX: 170, driftX: 112, apexY: 386, fallY: 106, spinMid: -132, spinEnd: -212, color: "#f59e0b", shape: "triangle" },
@@ -83,7 +83,7 @@ const _sfc_main = {
       { offset: 72, width: 26, height: 26, radius: 14, delay: 48, duration: 1460, angle: -12, skew: 12, burstX: 58, apexX: 196, driftX: 128, apexY: 428, fallY: 122, spinMid: -124, spinEnd: -202, color: "#14b8a6", shape: "triangle" },
       { offset: 84, width: 16, height: 16, radius: 24, delay: 102, duration: 1340, angle: -24, skew: -10, burstX: 40, apexX: 154, driftX: 96, apexY: 362, fallY: 96, spinMid: -166, spinEnd: -248, color: "#0ea5e9", shape: "circle" }
     ];
-    const collectRibbonsRight = [
+    const collectFireworksRight = [
       { offset: 10, width: 12, height: 12, radius: 20, delay: 20, duration: 1260, angle: 24, skew: 6, burstX: -34, apexX: -130, driftX: -82, apexY: 324, fallY: 84, spinMid: 182, spinEnd: 270, color: "#38bdf8", shape: "circle" },
       { offset: 24, width: 16, height: 16, radius: 12, delay: 52, duration: 1340, angle: 18, skew: -8, burstX: -46, apexX: -154, driftX: -98, apexY: 366, fallY: 96, spinMid: 152, spinEnd: 236, color: "#3b82f6", shape: "diamond" },
       { offset: 38, width: 20, height: 20, radius: 10, delay: 8, duration: 1420, angle: 12, skew: 10, burstX: -58, apexX: -182, driftX: -120, apexY: 416, fallY: 116, spinMid: 130, spinEnd: 208, color: "#6366f1", shape: "triangle" },
@@ -92,23 +92,20 @@ const _sfc_main = {
       { offset: 76, width: 26, height: 26, radius: 14, delay: 96, duration: 1460, angle: 16, skew: 12, burstX: -62, apexX: -196, driftX: -130, apexY: 432, fallY: 124, spinMid: 144, spinEnd: 224, color: "#d946ef", shape: "triangle" },
       { offset: 88, width: 18, height: 18, radius: 22, delay: 58, duration: 1360, angle: 22, skew: -8, burstX: -48, apexX: -160, driftX: -104, apexY: 378, fallY: 100, spinMid: 162, spinEnd: 246, color: "#f472b6", shape: "circle" }
     ];
-    const ribbonStyle = (ribbon) => ({
-      "--ribbon-offset": `${ribbon.offset}rpx`,
-      "--ribbon-width": `${ribbon.width}rpx`,
-      "--ribbon-height": `${ribbon.height}rpx`,
-      "--ribbon-radius": `${ribbon.radius}rpx`,
-      "--ribbon-delay": `${ribbon.delay}ms`,
-      "--ribbon-duration": `${ribbon.duration}ms`,
-      "--ribbon-rotate": `${ribbon.angle}deg`,
-      "--ribbon-skew": `${ribbon.skew}deg`,
-      "--ribbon-burst-x": `${ribbon.burstX}rpx`,
-      "--ribbon-apex-x": `${ribbon.apexX}rpx`,
-      "--ribbon-drift-x": `${ribbon.driftX}rpx`,
-      "--ribbon-apex-y": `${ribbon.apexY}rpx`,
-      "--ribbon-fall-y": `${ribbon.fallY}rpx`,
-      "--ribbon-spin-mid": `${ribbon.spinMid}deg`,
-      "--ribbon-spin-end": `${ribbon.spinEnd}deg`,
-      "--ribbon-color": ribbon.color
+    const fireworkStyle = (firework) => ({
+      "--firework-offset": `${firework.offset}rpx`,
+      "--firework-size": `${firework.width}rpx`,
+      "--firework-delay": `${firework.delay}ms`,
+      "--firework-duration": `${firework.duration}ms`,
+      "--firework-rotate": `${firework.angle}deg`,
+      "--firework-burst-x": `${firework.burstX}rpx`,
+      "--firework-apex-x": `${firework.apexX}rpx`,
+      "--firework-drift-x": `${firework.driftX}rpx`,
+      "--firework-apex-y": `${firework.apexY}rpx`,
+      "--firework-fall-y": `${firework.fallY}rpx`,
+      "--firework-spin-mid": `${firework.spinMid}deg`,
+      "--firework-spin-end": `${firework.spinEnd}deg`,
+      "--firework-color": firework.color
     });
     const likeSparks = [
       { angle: -80, distance: 44, size: 20, delay: 0 },
@@ -253,18 +250,16 @@ const _sfc_main = {
         }),
         y: scrollTop.value,
         z: common_vendor.o(handleScroll, "d8"),
-        A: common_vendor.f(collectRibbonsLeft, (ribbon, idx, i0) => {
+        A: common_vendor.f(collectFireworksLeft, (firework, idx, i0) => {
           return {
             a: `left-${idx}`,
-            b: common_vendor.n(`shape-${ribbon.shape || "strip"}`),
-            c: common_vendor.s(ribbonStyle(ribbon))
+            b: common_vendor.s(fireworkStyle(firework))
           };
         }),
-        B: common_vendor.f(collectRibbonsRight, (ribbon, idx, i0) => {
+        B: common_vendor.f(collectFireworksRight, (firework, idx, i0) => {
           return {
             a: `right-${idx}`,
-            b: common_vendor.n(`shape-${ribbon.shape || "strip"}`),
-            c: common_vendor.s(ribbonStyle(ribbon))
+            b: common_vendor.s(fireworkStyle(firework))
           };
         }),
         C: collectBurst.value ? 1 : "",
@@ -276,12 +271,12 @@ const _sfc_main = {
         }),
         E: likeBurst.value ? 1 : "",
         F: liked.value ? 1 : "",
-        G: common_vendor.o(toggleLike, "8b"),
+        G: common_vendor.o(toggleLike, "c6"),
         H: collected.value ? 1 : "",
-        I: common_vendor.o(toggleCollect, "4d"),
-        J: common_vendor.o(share, "8a"),
+        I: common_vendor.o(toggleCollect, "29"),
+        J: common_vendor.o(share, "d2"),
         K: showToTop.value ? 1 : "",
-        L: common_vendor.o(backToTop, "df"),
+        L: common_vendor.o(backToTop, "e9"),
         M: themeColor.value,
         N: themeColorRgb.value
       };
