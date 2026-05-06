@@ -449,15 +449,15 @@ to {
     transform: translate(0, 0) rotate(var(--ribbon-rotate)) skewY(var(--ribbon-skew));
     opacity: 0;
 }
-15% {
+10% {
     opacity: 1;
 }
-55% {
-    transform: translate(var(--ribbon-peak-x), calc(var(--ribbon-peak-y) * -1)) rotate(calc(var(--ribbon-rotate) * 0.4)) skewY(var(--ribbon-skew));
+45% {
+    transform: translate(var(--ribbon-peak-x), calc(var(--ribbon-peak-y) * -1)) rotate(calc(var(--ribbon-rotate) * 0.35)) skewY(var(--ribbon-skew));
     opacity: 1;
 }
 100% {
-    transform: translate(var(--ribbon-fall-x), calc(var(--ribbon-fall-y) * -1)) rotate(calc(var(--ribbon-rotate) * -0.2)) skewY(var(--ribbon-skew));
+    transform: translate(var(--ribbon-fall-x), 0) rotate(calc(var(--ribbon-rotate) * -0.2)) skewY(var(--ribbon-skew));
     opacity: 0;
 }
 }
