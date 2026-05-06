@@ -93,7 +93,22 @@
 
     <view class="action-bar">
       <view class="action-btn" :class="{ active: liked }" @tap="toggleLike">
-        <view class="action-icon">♥</view>
+        <view class="like-visual">
+          <view class="action-icon">♥</view>
+          <view class="like-burst" :class="{ show: likeBurst }">
+            <view class="like-main-heart">♥</view>
+            <view class="like-sparks">
+              <view
+                v-for="(spark, idx) in likeSparks"
+                :key="idx"
+                class="like-spark"
+                :style="sparkStyle(spark)"
+              >
+                ♥
+              </view>
+            </view>
+          </view>
+        </view>
         <view class="action-text">点赞</view>
       </view>
       <view class="action-btn" :class="{ active: collected }" @tap="toggleCollect">
@@ -190,9 +205,50 @@ const toggleBody = () => {
 
 const liked = ref(false)
 const collected = ref(false)
+const likeBurst = ref(false)
+const likeBurstTimer = ref(null)
+
+const likeSparks = [
+  { angle: -80, distance: 44, size: 20, delay: 0 },
+  { angle: -45, distance: 56, size: 16, delay: 40 },
+  { angle: -10, distance: 48, size: 22, delay: 20 },
+  { angle: 20, distance: 52, size: 18, delay: 60 },
+  { angle: 55, distance: 46, size: 14, delay: 30 },
+  { angle: 85, distance: 60, size: 20, delay: 10 },
+  { angle: 120, distance: 50, size: 16, delay: 50 },
+  { angle: 155, distance: 54, size: 18, delay: 70 }
+]
+
+const sparkStyle = (spark) => {
+  const rad = (spark.angle * Math.PI) / 180
+  const x = Math.cos(rad) * spark.distance
+  const y = Math.sin(rad) * spark.distance
+  return {
+    '--spark-x': `${x}rpx`,
+    '--spark-y': `${y}rpx`,
+    '--spark-size': `${spark.size}rpx`,
+    '--spark-delay': `${spark.delay}ms`
+  }
+}
+
+const triggerLikeBurst = () => {
+  likeBurst.value = false
+  if (likeBurstTimer.value) {
+    clearTimeout(likeBurstTimer.value)
+  }
+  setTimeout(() => {
+    likeBurst.value = true
+    likeBurstTimer.value = setTimeout(() => {
+      likeBurst.value = false
+    }, 480)
+  }, 0)
+}
 
 const toggleLike = () => {
   liked.value = !liked.value
+  if (liked.value) {
+    triggerLikeBurst()
+  }
 }
 
 const toggleCollect = () => {
@@ -545,6 +601,61 @@ const goDetail = (id) => {
   transition: transform 0.2s ease;
 }
 
+.like-visual {
+  position: relative;
+  width: 36rpx;
+  height: 36rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.like-burst {
+  position: absolute;
+  inset: -40rpx;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.like-burst.show {
+  opacity: 1;
+}
+
+.like-main-heart {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.6);
+  font-size: 36rpx;
+  color: #ef4444;
+  opacity: 0;
+}
+
+.like-burst.show .like-main-heart {
+  opacity: 1;
+  animation: like-pop 0.48s ease-out;
+}
+
+.like-sparks {
+  position: absolute;
+  inset: 0;
+}
+
+.like-spark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: var(--spark-size);
+  color: #f97316;
+  opacity: 0;
+}
+
+.like-burst.show .like-spark {
+  animation: like-spark 0.55s ease-out;
+  animation-delay: var(--spark-delay);
+}
+
 .action-btn:active {
   transform: scale(0.9);
 }
@@ -556,6 +667,14 @@ const goDetail = (id) => {
 .action-btn.active .action-icon {
   color: #ef4444;
   animation: pulse 0.3s ease;
+}
+
+.action-btn.active .like-visual .action-icon {
+  color: #ef4444;
+}
+
+.action-btn.active .like-visual .action-icon {
+  text-shadow: 0 2rpx 8rpx rgba(239, 68, 68, 0.35);
 }
 
 .action-btn.active .action-text {
@@ -600,6 +719,36 @@ const goDetail = (id) => {
 @keyframes pulse {
   50% {
     transform: scale(1.15);
+  }
+}
+
+@keyframes like-pop {
+  0% {
+    transform: translate(-50%, -50%) scale(0.6);
+  }
+  45% {
+    transform: translate(-50%, -50%) scale(1.8);
+  }
+  70% {
+    transform: translate(-50%, -50%) scale(1.4);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 0;
+  }
+}
+
+@keyframes like-spark {
+  0% {
+    transform: translate(-50%, -50%) scale(0.4);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(calc(-50% + var(--spark-x)), calc(-50% + var(--spark-y))) scale(1.05);
+    opacity: 0;
   }
 }
 </style>

@@ -70,8 +70,46 @@ const _sfc_main = {
     };
     const liked = common_vendor.ref(false);
     const collected = common_vendor.ref(false);
+    const likeBurst = common_vendor.ref(false);
+    const likeBurstTimer = common_vendor.ref(null);
+    const likeSparks = [
+      { angle: -80, distance: 44, size: 20, delay: 0 },
+      { angle: -45, distance: 56, size: 16, delay: 40 },
+      { angle: -10, distance: 48, size: 22, delay: 20 },
+      { angle: 20, distance: 52, size: 18, delay: 60 },
+      { angle: 55, distance: 46, size: 14, delay: 30 },
+      { angle: 85, distance: 60, size: 20, delay: 10 },
+      { angle: 120, distance: 50, size: 16, delay: 50 },
+      { angle: 155, distance: 54, size: 18, delay: 70 }
+    ];
+    const sparkStyle = (spark) => {
+      const rad = spark.angle * Math.PI / 180;
+      const x = Math.cos(rad) * spark.distance;
+      const y = Math.sin(rad) * spark.distance;
+      return {
+        "--spark-x": `${x}rpx`,
+        "--spark-y": `${y}rpx`,
+        "--spark-size": `${spark.size}rpx`,
+        "--spark-delay": `${spark.delay}ms`
+      };
+    };
+    const triggerLikeBurst = () => {
+      likeBurst.value = false;
+      if (likeBurstTimer.value) {
+        clearTimeout(likeBurstTimer.value);
+      }
+      setTimeout(() => {
+        likeBurst.value = true;
+        likeBurstTimer.value = setTimeout(() => {
+          likeBurst.value = false;
+        }, 480);
+      }, 0);
+    };
     const toggleLike = () => {
       liked.value = !liked.value;
+      if (liked.value) {
+        triggerLikeBurst();
+      }
     };
     const toggleCollect = () => {
       collected.value = !collected.value;
@@ -162,15 +200,22 @@ const _sfc_main = {
         }),
         y: scrollTop.value,
         z: common_vendor.o(handleScroll, "d8"),
-        A: liked.value ? 1 : "",
-        B: common_vendor.o(toggleLike, "46"),
-        C: collected.value ? 1 : "",
-        D: common_vendor.o(toggleCollect, "47"),
-        E: common_vendor.o(share, "5e"),
-        F: showToTop.value ? 1 : "",
-        G: common_vendor.o(backToTop, "7a"),
-        H: themeColor.value,
-        I: themeColorRgb.value
+        A: common_vendor.f(likeSparks, (spark, idx, i0) => {
+          return {
+            a: idx,
+            b: common_vendor.s(sparkStyle(spark))
+          };
+        }),
+        B: likeBurst.value ? 1 : "",
+        C: liked.value ? 1 : "",
+        D: common_vendor.o(toggleLike, "46"),
+        E: collected.value ? 1 : "",
+        F: common_vendor.o(toggleCollect, "01"),
+        G: common_vendor.o(share, "a4"),
+        H: showToTop.value ? 1 : "",
+        I: common_vendor.o(backToTop, "a1"),
+        J: themeColor.value,
+        K: themeColorRgb.value
       };
     };
   }
