@@ -97,6 +97,7 @@
           v-for="(ribbon, idx) in collectRibbonsLeft"
           :key="`left-${idx}`"
           class="collect-ribbon"
+          :class="`shape-${ribbon.shape || 'strip'}`"
           :style="ribbonStyle(ribbon)"
         />
       </view>
@@ -105,6 +106,7 @@
           v-for="(ribbon, idx) in collectRibbonsRight"
           :key="`right-${idx}`"
           class="collect-ribbon"
+          :class="`shape-${ribbon.shape || 'strip'}`"
           :style="ribbonStyle(ribbon)"
         />
       </view>
@@ -230,17 +232,17 @@ const collectBurst = ref(false)
 const collectBurstTimer = ref(null)
 
 const collectRibbonsLeft = [
-  { offset: 12, width: 16, height: 120, radius: 24, delay: 0, duration: 820, angle: -18, skew: -8, peakX: 140, peakY: 420, fallX: 80, fallY: 120, color: '#f43f5e' },
-  { offset: 32, width: 22, height: 160, radius: 12, delay: 40, duration: 880, angle: -8, skew: 6, peakX: 160, peakY: 460, fallX: 90, fallY: 140, color: '#f97316' },
-  { offset: 54, width: 12, height: 110, radius: 30, delay: 80, duration: 840, angle: -22, skew: -4, peakX: 130, peakY: 400, fallX: 70, fallY: 110, color: '#f59e0b' },
-  { offset: 74, width: 20, height: 190, radius: 8, delay: 20, duration: 920, angle: -12, skew: 10, peakX: 170, peakY: 500, fallX: 100, fallY: 150, color: '#22c55e' }
+  { offset: 10, width: 18, height: 130, radius: 26, delay: 0, duration: 900, angle: -20, skew: -10, peakX: 150, peakY: 440, fallX: 90, fallY: 140, color: '#f43f5e', shape: 'strip' },
+  { offset: 30, width: 24, height: 170, radius: 14, delay: 50, duration: 980, angle: -10, skew: 8, peakX: 175, peakY: 480, fallX: 105, fallY: 150, color: '#f97316', shape: 'diamond' },
+  { offset: 52, width: 14, height: 120, radius: 34, delay: 100, duration: 920, angle: -24, skew: -6, peakX: 140, peakY: 420, fallX: 80, fallY: 130, color: '#f59e0b', shape: 'circle' },
+  { offset: 76, width: 22, height: 200, radius: 10, delay: 20, duration: 1040, angle: -14, skew: 12, peakX: 185, peakY: 520, fallX: 120, fallY: 160, color: '#22c55e', shape: 'triangle' }
 ]
 
 const collectRibbonsRight = [
-  { offset: 12, width: 18, height: 140, radius: 18, delay: 20, duration: 840, angle: 16, skew: 6, peakX: -140, peakY: 420, fallX: -80, fallY: 120, color: '#3b82f6' },
-  { offset: 34, width: 12, height: 120, radius: 28, delay: 70, duration: 880, angle: 24, skew: -6, peakX: -170, peakY: 460, fallX: -90, fallY: 140, color: '#6366f1' },
-  { offset: 56, width: 22, height: 170, radius: 10, delay: 10, duration: 860, angle: 10, skew: 8, peakX: -150, peakY: 440, fallX: -80, fallY: 130, color: '#8b5cf6' },
-  { offset: 76, width: 14, height: 200, radius: 6, delay: 60, duration: 940, angle: 18, skew: -10, peakX: -180, peakY: 520, fallX: -110, fallY: 150, color: '#ec4899' }
+  { offset: 10, width: 20, height: 150, radius: 20, delay: 30, duration: 940, angle: 18, skew: 8, peakX: -150, peakY: 440, fallX: -90, fallY: 140, color: '#3b82f6', shape: 'triangle' },
+  { offset: 32, width: 14, height: 130, radius: 30, delay: 90, duration: 980, angle: 26, skew: -8, peakX: -180, peakY: 480, fallX: -110, fallY: 150, color: '#6366f1', shape: 'circle' },
+  { offset: 54, width: 24, height: 180, radius: 12, delay: 10, duration: 960, angle: 12, skew: 10, peakX: -165, peakY: 460, fallX: -95, fallY: 140, color: '#8b5cf6', shape: 'diamond' },
+  { offset: 78, width: 16, height: 210, radius: 8, delay: 70, duration: 1080, angle: 20, skew: -12, peakX: -195, peakY: 540, fallX: -125, fallY: 160, color: '#ec4899', shape: 'strip' }
 ]
 
 const ribbonStyle = (ribbon) => ({
@@ -689,8 +691,35 @@ const goDetail = (id) => {
   opacity: 0;
 }
 
+.collect-ribbon.shape-circle {
+  width: calc(var(--ribbon-width) * 1.35);
+  height: calc(var(--ribbon-width) * 1.35);
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.5), var(--ribbon-color) 55%, rgba(0, 0, 0, 0.06) 100%);
+  transform: translate(0, 0) rotate(var(--ribbon-rotate));
+}
+
+.collect-ribbon.shape-diamond {
+  width: calc(var(--ribbon-width) * 1.4);
+  height: calc(var(--ribbon-width) * 1.4);
+  border-radius: 6rpx;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, var(--ribbon-color) 55%, rgba(0, 0, 0, 0.06) 100%);
+  transform: translate(0, 0) rotate(calc(45deg + var(--ribbon-rotate)));
+}
+
+.collect-ribbon.shape-triangle {
+  width: 0;
+  height: 0;
+  border-left: calc(var(--ribbon-width) * 0.7) solid transparent;
+  border-right: calc(var(--ribbon-width) * 0.7) solid transparent;
+  border-bottom: calc(var(--ribbon-width) * 1.2) solid var(--ribbon-color);
+  background: transparent;
+  border-radius: 0;
+  transform: translate(0, 0) rotate(var(--ribbon-rotate));
+}
+
 .collect-ribbons.show .collect-ribbon {
-  animation: ribbon-arc var(--ribbon-duration) ease-in-out;
+  animation: ribbon-arc var(--ribbon-duration) cubic-bezier(0.2, 0.85, 0.2, 1);
   animation-delay: var(--ribbon-delay);
 }
 
@@ -876,18 +905,26 @@ const goDetail = (id) => {
 
 @keyframes ribbon-arc {
   0% {
-    transform: translate(0, 0) rotate(var(--ribbon-rotate)) skewY(var(--ribbon-skew));
+    transform: translate(0, 0) rotate(var(--ribbon-rotate)) skewY(var(--ribbon-skew)) scale(0.92);
     opacity: 0;
   }
-  10% {
+  12% {
+    opacity: 0.95;
+  }
+  38% {
+    transform: translate(calc(var(--ribbon-peak-x) * 0.85), calc(var(--ribbon-peak-y) * -0.85)) rotate(calc(var(--ribbon-rotate) * 0.45)) skewY(calc(var(--ribbon-skew) * 0.7)) scale(1);
     opacity: 1;
   }
-  45% {
-    transform: translate(var(--ribbon-peak-x), calc(var(--ribbon-peak-y) * -1)) rotate(calc(var(--ribbon-rotate) * 0.35)) skewY(var(--ribbon-skew));
+  58% {
+    transform: translate(var(--ribbon-peak-x), calc(var(--ribbon-peak-y) * -1)) rotate(calc(var(--ribbon-rotate) * 0.25)) skewY(calc(var(--ribbon-skew) * 0.9)) scale(1.03);
     opacity: 1;
+  }
+  78% {
+    transform: translate(calc(var(--ribbon-fall-x) * 1.05), calc(var(--ribbon-peak-y) * -0.2)) rotate(calc(var(--ribbon-rotate) * -0.1)) skewY(var(--ribbon-skew)) scale(0.98);
+    opacity: 0.75;
   }
   100% {
-    transform: translate(var(--ribbon-fall-x), 0) rotate(calc(var(--ribbon-rotate) * -0.2)) skewY(var(--ribbon-skew));
+    transform: translate(var(--ribbon-fall-x), 0) rotate(calc(var(--ribbon-rotate) * -0.2)) skewY(var(--ribbon-skew)) scale(0.9);
     opacity: 0;
   }
 }

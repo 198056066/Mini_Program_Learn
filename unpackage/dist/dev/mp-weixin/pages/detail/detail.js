@@ -75,16 +75,16 @@ const _sfc_main = {
     const collectBurst = common_vendor.ref(false);
     const collectBurstTimer = common_vendor.ref(null);
     const collectRibbonsLeft = [
-      { offset: 12, width: 16, height: 120, radius: 24, delay: 0, duration: 820, angle: -18, skew: -8, peakX: 140, peakY: 420, fallX: 80, fallY: 120, color: "#f43f5e" },
-      { offset: 32, width: 22, height: 160, radius: 12, delay: 40, duration: 880, angle: -8, skew: 6, peakX: 160, peakY: 460, fallX: 90, fallY: 140, color: "#f97316" },
-      { offset: 54, width: 12, height: 110, radius: 30, delay: 80, duration: 840, angle: -22, skew: -4, peakX: 130, peakY: 400, fallX: 70, fallY: 110, color: "#f59e0b" },
-      { offset: 74, width: 20, height: 190, radius: 8, delay: 20, duration: 920, angle: -12, skew: 10, peakX: 170, peakY: 500, fallX: 100, fallY: 150, color: "#22c55e" }
+      { offset: 10, width: 18, height: 130, radius: 26, delay: 0, duration: 900, angle: -20, skew: -10, peakX: 150, peakY: 440, fallX: 90, fallY: 140, color: "#f43f5e", shape: "strip" },
+      { offset: 30, width: 24, height: 170, radius: 14, delay: 50, duration: 980, angle: -10, skew: 8, peakX: 175, peakY: 480, fallX: 105, fallY: 150, color: "#f97316", shape: "diamond" },
+      { offset: 52, width: 14, height: 120, radius: 34, delay: 100, duration: 920, angle: -24, skew: -6, peakX: 140, peakY: 420, fallX: 80, fallY: 130, color: "#f59e0b", shape: "circle" },
+      { offset: 76, width: 22, height: 200, radius: 10, delay: 20, duration: 1040, angle: -14, skew: 12, peakX: 185, peakY: 520, fallX: 120, fallY: 160, color: "#22c55e", shape: "triangle" }
     ];
     const collectRibbonsRight = [
-      { offset: 12, width: 18, height: 140, radius: 18, delay: 20, duration: 840, angle: 16, skew: 6, peakX: -140, peakY: 420, fallX: -80, fallY: 120, color: "#3b82f6" },
-      { offset: 34, width: 12, height: 120, radius: 28, delay: 70, duration: 880, angle: 24, skew: -6, peakX: -170, peakY: 460, fallX: -90, fallY: 140, color: "#6366f1" },
-      { offset: 56, width: 22, height: 170, radius: 10, delay: 10, duration: 860, angle: 10, skew: 8, peakX: -150, peakY: 440, fallX: -80, fallY: 130, color: "#8b5cf6" },
-      { offset: 76, width: 14, height: 200, radius: 6, delay: 60, duration: 940, angle: 18, skew: -10, peakX: -180, peakY: 520, fallX: -110, fallY: 150, color: "#ec4899" }
+      { offset: 10, width: 20, height: 150, radius: 20, delay: 30, duration: 940, angle: 18, skew: 8, peakX: -150, peakY: 440, fallX: -90, fallY: 140, color: "#3b82f6", shape: "triangle" },
+      { offset: 32, width: 14, height: 130, radius: 30, delay: 90, duration: 980, angle: 26, skew: -8, peakX: -180, peakY: 480, fallX: -110, fallY: 150, color: "#6366f1", shape: "circle" },
+      { offset: 54, width: 24, height: 180, radius: 12, delay: 10, duration: 960, angle: 12, skew: 10, peakX: -165, peakY: 460, fallX: -95, fallY: 140, color: "#8b5cf6", shape: "diamond" },
+      { offset: 78, width: 16, height: 210, radius: 8, delay: 70, duration: 1080, angle: 20, skew: -12, peakX: -195, peakY: 540, fallX: -125, fallY: 160, color: "#ec4899", shape: "strip" }
     ];
     const ribbonStyle = (ribbon) => ({
       "--ribbon-offset": `${ribbon.offset}rpx`,
@@ -247,13 +247,15 @@ const _sfc_main = {
         A: common_vendor.f(collectRibbonsLeft, (ribbon, idx, i0) => {
           return {
             a: `left-${idx}`,
-            b: common_vendor.s(ribbonStyle(ribbon))
+            b: common_vendor.n(`shape-${ribbon.shape || "strip"}`),
+            c: common_vendor.s(ribbonStyle(ribbon))
           };
         }),
         B: common_vendor.f(collectRibbonsRight, (ribbon, idx, i0) => {
           return {
             a: `right-${idx}`,
-            b: common_vendor.s(ribbonStyle(ribbon))
+            b: common_vendor.n(`shape-${ribbon.shape || "strip"}`),
+            c: common_vendor.s(ribbonStyle(ribbon))
           };
         }),
         C: collectBurst.value ? 1 : "",
@@ -265,12 +267,12 @@ const _sfc_main = {
         }),
         E: likeBurst.value ? 1 : "",
         F: liked.value ? 1 : "",
-        G: common_vendor.o(toggleLike, "ce"),
+        G: common_vendor.o(toggleLike, "8b"),
         H: collected.value ? 1 : "",
-        I: common_vendor.o(toggleCollect, "86"),
-        J: common_vendor.o(share, "6f"),
+        I: common_vendor.o(toggleCollect, "4d"),
+        J: common_vendor.o(share, "8a"),
         K: showToTop.value ? 1 : "",
-        L: common_vendor.o(backToTop, "24"),
+        L: common_vendor.o(backToTop, "df"),
         M: themeColor.value,
         N: themeColorRgb.value
       };
