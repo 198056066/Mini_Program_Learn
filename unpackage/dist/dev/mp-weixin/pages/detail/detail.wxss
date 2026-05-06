@@ -310,7 +310,7 @@
   transform: translate(0, 0) rotate(var(--ribbon-rotate));
 }
 .collect-ribbons.show .collect-ribbon.data-v-eca06f3c {
-  animation: ribbon-arc-eca06f3c var(--ribbon-duration) cubic-bezier(0.2, 0.85, 0.2, 1);
+  animation: ribbon-ballistic-eca06f3c var(--ribbon-duration) cubic-bezier(0.14, 0.78, 0.22, 1);
   animation-delay: var(--ribbon-delay);
 }
 .collect-ribbon-group.left .collect-ribbon.data-v-eca06f3c {
@@ -468,28 +468,29 @@ to {
     opacity: 0;
 }
 }
-@keyframes ribbon-arc-eca06f3c {
+@keyframes ribbon-ballistic-eca06f3c {
 0% {
-    transform: translate(0, 0) rotate(var(--ribbon-rotate)) skewY(var(--ribbon-skew)) scale(0.92);
+    transform: translate(0, 0) rotate(var(--ribbon-rotate)) skewY(var(--ribbon-skew)) scale(0.82);
     opacity: 0;
 }
-12% {
+10% {
+    transform: translate(calc(var(--ribbon-burst-x) * 0.55), calc(var(--ribbon-apex-y) * -0.26)) rotate(calc(var(--ribbon-rotate) + var(--ribbon-spin-mid) * 0.2)) skewY(calc(var(--ribbon-skew) * 0.8)) scale(1.04);
     opacity: 0.95;
 }
-38% {
-    transform: translate(calc(var(--ribbon-peak-x) * 0.85), calc(var(--ribbon-peak-y) * -0.85)) rotate(calc(var(--ribbon-rotate) * 0.45)) skewY(calc(var(--ribbon-skew) * 0.7)) scale(1);
+36% {
+    transform: translate(var(--ribbon-apex-x), calc(var(--ribbon-apex-y) * -1)) rotate(calc(var(--ribbon-rotate) + var(--ribbon-spin-mid))) skewY(calc(var(--ribbon-skew) * 0.6)) scale(1.02);
     opacity: 1;
 }
-58% {
-    transform: translate(var(--ribbon-peak-x), calc(var(--ribbon-peak-y) * -1)) rotate(calc(var(--ribbon-rotate) * 0.25)) skewY(calc(var(--ribbon-skew) * 0.9)) scale(1.03);
-    opacity: 1;
+68% {
+    transform: translate(calc((var(--ribbon-apex-x) + var(--ribbon-drift-x)) * 0.5), calc(var(--ribbon-apex-y) * -0.5)) rotate(calc(var(--ribbon-rotate) + var(--ribbon-spin-mid) * 1.25)) skewY(var(--ribbon-skew)) scale(0.99);
+    opacity: 0.92;
 }
-78% {
-    transform: translate(calc(var(--ribbon-fall-x) * 1.05), calc(var(--ribbon-peak-y) * -0.2)) rotate(calc(var(--ribbon-rotate) * -0.1)) skewY(var(--ribbon-skew)) scale(0.98);
-    opacity: 0.75;
+90% {
+    transform: translate(var(--ribbon-drift-x), var(--ribbon-fall-y)) rotate(calc(var(--ribbon-rotate) + var(--ribbon-spin-end))) skewY(var(--ribbon-skew)) scale(0.94);
+    opacity: 0.62;
 }
 100% {
-    transform: translate(var(--ribbon-fall-x), 0) rotate(calc(var(--ribbon-rotate) * -0.2)) skewY(var(--ribbon-skew)) scale(0.9);
+    transform: translate(calc(var(--ribbon-drift-x) * 1.08), calc(var(--ribbon-fall-y) + 68rpx)) rotate(calc(var(--ribbon-rotate) + var(--ribbon-spin-end) * 1.15)) skewY(var(--ribbon-skew)) scale(0.88);
     opacity: 0;
 }
 }

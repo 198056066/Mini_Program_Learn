@@ -75,16 +75,22 @@ const _sfc_main = {
     const collectBurst = common_vendor.ref(false);
     const collectBurstTimer = common_vendor.ref(null);
     const collectRibbonsLeft = [
-      { offset: 10, width: 18, height: 130, radius: 26, delay: 0, duration: 900, angle: -20, skew: -10, peakX: 150, peakY: 440, fallX: 90, fallY: 140, color: "#f43f5e", shape: "strip" },
-      { offset: 30, width: 24, height: 170, radius: 14, delay: 50, duration: 980, angle: -10, skew: 8, peakX: 175, peakY: 480, fallX: 105, fallY: 150, color: "#f97316", shape: "diamond" },
-      { offset: 52, width: 14, height: 120, radius: 34, delay: 100, duration: 920, angle: -24, skew: -6, peakX: 140, peakY: 420, fallX: 80, fallY: 130, color: "#f59e0b", shape: "circle" },
-      { offset: 76, width: 22, height: 200, radius: 10, delay: 20, duration: 1040, angle: -14, skew: 12, peakX: 185, peakY: 520, fallX: 120, fallY: 160, color: "#22c55e", shape: "triangle" }
+      { offset: 10, width: 10, height: 10, radius: 20, delay: 0, duration: 1240, angle: -26, skew: -6, burstX: 32, apexX: 126, driftX: 78, apexY: 312, fallY: 82, spinMid: -186, spinEnd: -276, color: "#fb7185", shape: "circle" },
+      { offset: 20, width: 14, height: 14, radius: 12, delay: 30, duration: 1320, angle: -18, skew: 8, burstX: 42, apexX: 148, driftX: 94, apexY: 348, fallY: 92, spinMid: -154, spinEnd: -238, color: "#f97316", shape: "diamond" },
+      { offset: 34, width: 18, height: 18, radius: 10, delay: 62, duration: 1380, angle: -14, skew: 10, burstX: 50, apexX: 170, driftX: 112, apexY: 386, fallY: 106, spinMid: -132, spinEnd: -212, color: "#f59e0b", shape: "triangle" },
+      { offset: 48, width: 22, height: 22, radius: 22, delay: 18, duration: 1420, angle: -22, skew: -8, burstX: 56, apexX: 184, driftX: 122, apexY: 414, fallY: 114, spinMid: -148, spinEnd: -230, color: "#84cc16", shape: "circle" },
+      { offset: 60, width: 12, height: 12, radius: 10, delay: 86, duration: 1260, angle: -30, skew: -4, burstX: 30, apexX: 132, driftX: 84, apexY: 326, fallY: 86, spinMid: -190, spinEnd: -284, color: "#22c55e", shape: "diamond" },
+      { offset: 72, width: 26, height: 26, radius: 14, delay: 48, duration: 1460, angle: -12, skew: 12, burstX: 58, apexX: 196, driftX: 128, apexY: 428, fallY: 122, spinMid: -124, spinEnd: -202, color: "#14b8a6", shape: "triangle" },
+      { offset: 84, width: 16, height: 16, radius: 24, delay: 102, duration: 1340, angle: -24, skew: -10, burstX: 40, apexX: 154, driftX: 96, apexY: 362, fallY: 96, spinMid: -166, spinEnd: -248, color: "#0ea5e9", shape: "circle" }
     ];
     const collectRibbonsRight = [
-      { offset: 10, width: 20, height: 150, radius: 20, delay: 30, duration: 940, angle: 18, skew: 8, peakX: -150, peakY: 440, fallX: -90, fallY: 140, color: "#3b82f6", shape: "triangle" },
-      { offset: 32, width: 14, height: 130, radius: 30, delay: 90, duration: 980, angle: 26, skew: -8, peakX: -180, peakY: 480, fallX: -110, fallY: 150, color: "#6366f1", shape: "circle" },
-      { offset: 54, width: 24, height: 180, radius: 12, delay: 10, duration: 960, angle: 12, skew: 10, peakX: -165, peakY: 460, fallX: -95, fallY: 140, color: "#8b5cf6", shape: "diamond" },
-      { offset: 78, width: 16, height: 210, radius: 8, delay: 70, duration: 1080, angle: 20, skew: -12, peakX: -195, peakY: 540, fallX: -125, fallY: 160, color: "#ec4899", shape: "strip" }
+      { offset: 10, width: 12, height: 12, radius: 20, delay: 20, duration: 1260, angle: 24, skew: 6, burstX: -34, apexX: -130, driftX: -82, apexY: 324, fallY: 84, spinMid: 182, spinEnd: 270, color: "#38bdf8", shape: "circle" },
+      { offset: 24, width: 16, height: 16, radius: 12, delay: 52, duration: 1340, angle: 18, skew: -8, burstX: -46, apexX: -154, driftX: -98, apexY: 366, fallY: 96, spinMid: 152, spinEnd: 236, color: "#3b82f6", shape: "diamond" },
+      { offset: 38, width: 20, height: 20, radius: 10, delay: 8, duration: 1420, angle: 12, skew: 10, burstX: -58, apexX: -182, driftX: -120, apexY: 416, fallY: 116, spinMid: 130, spinEnd: 208, color: "#6366f1", shape: "triangle" },
+      { offset: 52, width: 24, height: 24, radius: 24, delay: 74, duration: 1380, angle: 26, skew: -10, burstX: -44, apexX: -172, driftX: -114, apexY: 398, fallY: 108, spinMid: 168, spinEnd: 252, color: "#8b5cf6", shape: "circle" },
+      { offset: 64, width: 14, height: 14, radius: 10, delay: 36, duration: 1280, angle: 30, skew: -6, burstX: -36, apexX: -140, driftX: -90, apexY: 338, fallY: 88, spinMid: 190, spinEnd: 282, color: "#a855f7", shape: "diamond" },
+      { offset: 76, width: 26, height: 26, radius: 14, delay: 96, duration: 1460, angle: 16, skew: 12, burstX: -62, apexX: -196, driftX: -130, apexY: 432, fallY: 124, spinMid: 144, spinEnd: 224, color: "#d946ef", shape: "triangle" },
+      { offset: 88, width: 18, height: 18, radius: 22, delay: 58, duration: 1360, angle: 22, skew: -8, burstX: -48, apexX: -160, driftX: -104, apexY: 378, fallY: 100, spinMid: 162, spinEnd: 246, color: "#f472b6", shape: "circle" }
     ];
     const ribbonStyle = (ribbon) => ({
       "--ribbon-offset": `${ribbon.offset}rpx`,
@@ -95,10 +101,13 @@ const _sfc_main = {
       "--ribbon-duration": `${ribbon.duration}ms`,
       "--ribbon-rotate": `${ribbon.angle}deg`,
       "--ribbon-skew": `${ribbon.skew}deg`,
-      "--ribbon-peak-x": `${ribbon.peakX}rpx`,
-      "--ribbon-peak-y": `${ribbon.peakY}rpx`,
-      "--ribbon-fall-x": `${ribbon.fallX}rpx`,
+      "--ribbon-burst-x": `${ribbon.burstX}rpx`,
+      "--ribbon-apex-x": `${ribbon.apexX}rpx`,
+      "--ribbon-drift-x": `${ribbon.driftX}rpx`,
+      "--ribbon-apex-y": `${ribbon.apexY}rpx`,
       "--ribbon-fall-y": `${ribbon.fallY}rpx`,
+      "--ribbon-spin-mid": `${ribbon.spinMid}deg`,
+      "--ribbon-spin-end": `${ribbon.spinEnd}deg`,
       "--ribbon-color": ribbon.color
     });
     const likeSparks = [
@@ -143,7 +152,7 @@ const _sfc_main = {
         collectBurst.value = true;
         collectBurstTimer.value = setTimeout(() => {
           collectBurst.value = false;
-        }, 720);
+        }, 1220);
       }, 0);
     };
     const toggleLike = () => {
