@@ -249,6 +249,52 @@
   padding: 12rpx;
   font-size: 24rpx;
 }
+.collect-ribbons.data-v-eca06f3c {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  pointer-events: none;
+  opacity: 0;
+}
+.collect-ribbons.show.data-v-eca06f3c {
+  opacity: 1;
+}
+.collect-ribbon-group.data-v-eca06f3c {
+  position: absolute;
+  bottom: 100rpx;
+  width: 120rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+.collect-ribbon-group.left.data-v-eca06f3c {
+  left: 0;
+  align-items: flex-start;
+}
+.collect-ribbon-group.right.data-v-eca06f3c {
+  right: 0;
+  align-items: flex-end;
+}
+.collect-ribbon.data-v-eca06f3c {
+  width: var(--ribbon-width);
+  height: var(--ribbon-height);
+  border-radius: var(--ribbon-radius);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, var(--ribbon-color) 35%, var(--ribbon-color) 100%);
+  transform: translate(0, 0) rotate(var(--ribbon-rotate)) skewY(var(--ribbon-skew));
+  opacity: 0;
+}
+.collect-ribbons.show .collect-ribbon.data-v-eca06f3c {
+  animation: ribbon-arc-eca06f3c var(--ribbon-duration) ease-in-out;
+  animation-delay: var(--ribbon-delay);
+}
+.collect-ribbon-group.left .collect-ribbon.data-v-eca06f3c {
+  margin-left: var(--ribbon-offset);
+}
+.collect-ribbon-group.right .collect-ribbon.data-v-eca06f3c {
+  margin-right: var(--ribbon-offset);
+}
 .action-bar.data-v-eca06f3c {
   position: fixed;
   left: 0;
@@ -395,6 +441,23 @@ to {
 }
 100% {
     transform: translate(calc(-50% + var(--spark-x)), calc(-50% + var(--spark-y))) scale(1.05);
+    opacity: 0;
+}
+}
+@keyframes ribbon-arc-eca06f3c {
+0% {
+    transform: translate(0, 0) rotate(var(--ribbon-rotate)) skewY(var(--ribbon-skew));
+    opacity: 0;
+}
+15% {
+    opacity: 1;
+}
+55% {
+    transform: translate(var(--ribbon-peak-x), calc(var(--ribbon-peak-y) * -1)) rotate(calc(var(--ribbon-rotate) * 0.4)) skewY(var(--ribbon-skew));
+    opacity: 1;
+}
+100% {
+    transform: translate(var(--ribbon-fall-x), calc(var(--ribbon-fall-y) * -1)) rotate(calc(var(--ribbon-rotate) * -0.2)) skewY(var(--ribbon-skew));
     opacity: 0;
 }
 }

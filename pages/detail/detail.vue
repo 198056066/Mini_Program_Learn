@@ -91,6 +91,25 @@
       </view>
     </scroll-view>
 
+    <view class="collect-ribbons" :class="{ show: collectBurst }">
+      <view class="collect-ribbon-group left">
+        <view
+          v-for="(ribbon, idx) in collectRibbonsLeft"
+          :key="`left-${idx}`"
+          class="collect-ribbon"
+          :style="ribbonStyle(ribbon)"
+        />
+      </view>
+      <view class="collect-ribbon-group right">
+        <view
+          v-for="(ribbon, idx) in collectRibbonsRight"
+          :key="`right-${idx}`"
+          class="collect-ribbon"
+          :style="ribbonStyle(ribbon)"
+        />
+      </view>
+    </view>
+
     <view class="action-bar">
       <view class="action-btn" :class="{ active: liked }" @tap="toggleLike">
         <view class="like-visual">
@@ -207,6 +226,38 @@ const liked = ref(false)
 const collected = ref(false)
 const likeBurst = ref(false)
 const likeBurstTimer = ref(null)
+const collectBurst = ref(false)
+const collectBurstTimer = ref(null)
+
+const collectRibbonsLeft = [
+  { offset: 12, width: 16, height: 120, radius: 24, delay: 0, duration: 760, angle: -18, skew: -8, peakX: 120, peakY: 380, fallX: 60, fallY: 160, color: '#f43f5e' },
+  { offset: 32, width: 22, height: 160, radius: 12, delay: 40, duration: 820, angle: -8, skew: 6, peakX: 140, peakY: 420, fallX: 80, fallY: 140, color: '#f97316' },
+  { offset: 54, width: 12, height: 110, radius: 30, delay: 80, duration: 780, angle: -22, skew: -4, peakX: 110, peakY: 360, fallX: 70, fallY: 180, color: '#f59e0b' },
+  { offset: 74, width: 20, height: 190, radius: 8, delay: 20, duration: 860, angle: -12, skew: 10, peakX: 150, peakY: 460, fallX: 90, fallY: 120, color: '#22c55e' }
+]
+
+const collectRibbonsRight = [
+  { offset: 12, width: 18, height: 140, radius: 18, delay: 20, duration: 780, angle: 16, skew: 6, peakX: -120, peakY: 380, fallX: -60, fallY: 160, color: '#3b82f6' },
+  { offset: 34, width: 12, height: 120, radius: 28, delay: 70, duration: 820, angle: 24, skew: -6, peakX: -150, peakY: 420, fallX: -90, fallY: 140, color: '#6366f1' },
+  { offset: 56, width: 22, height: 170, radius: 10, delay: 10, duration: 800, angle: 10, skew: 8, peakX: -130, peakY: 400, fallX: -70, fallY: 150, color: '#8b5cf6' },
+  { offset: 76, width: 14, height: 200, radius: 6, delay: 60, duration: 880, angle: 18, skew: -10, peakX: -160, peakY: 460, fallX: -100, fallY: 120, color: '#ec4899' }
+]
+
+const ribbonStyle = (ribbon) => ({
+  '--ribbon-offset': `${ribbon.offset}rpx`,
+  '--ribbon-width': `${ribbon.width}rpx`,
+  '--ribbon-height': `${ribbon.height}rpx`,
+  '--ribbon-radius': `${ribbon.radius}rpx`,
+  '--ribbon-delay': `${ribbon.delay}ms`,
+  '--ribbon-duration': `${ribbon.duration}ms`,
+  '--ribbon-rotate': `${ribbon.angle}deg`,
+  '--ribbon-skew': `${ribbon.skew}deg`,
+  '--ribbon-peak-x': `${ribbon.peakX}rpx`,
+  '--ribbon-peak-y': `${ribbon.peakY}rpx`,
+  '--ribbon-fall-x': `${ribbon.fallX}rpx`,
+  '--ribbon-fall-y': `${ribbon.fallY}rpx`,
+  '--ribbon-color': ribbon.color
+})
 
 const likeSparks = [
   { angle: -80, distance: 44, size: 20, delay: 0 },
@@ -244,6 +295,19 @@ const triggerLikeBurst = () => {
   }, 0)
 }
 
+const triggerCollectBurst = () => {
+  collectBurst.value = false
+  if (collectBurstTimer.value) {
+    clearTimeout(collectBurstTimer.value)
+  }
+  setTimeout(() => {
+    collectBurst.value = true
+    collectBurstTimer.value = setTimeout(() => {
+      collectBurst.value = false
+    }, 720)
+  }, 0)
+}
+
 const toggleLike = () => {
   liked.value = !liked.value
   if (liked.value) {
@@ -253,6 +317,9 @@ const toggleLike = () => {
 
 const toggleCollect = () => {
   collected.value = !collected.value
+  if (collected.value) {
+    triggerCollectBurst()
+  }
 }
 
 const share = () => {
@@ -580,6 +647,61 @@ const goDetail = (id) => {
   font-size: 24rpx;
 }
 
+.collect-ribbons {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.collect-ribbons.show {
+  opacity: 1;
+}
+
+.collect-ribbon-group {
+  position: absolute;
+  bottom: 100rpx;
+  width: 120rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.collect-ribbon-group.left {
+  left: 0;
+  align-items: flex-start;
+}
+
+.collect-ribbon-group.right {
+  right: 0;
+  align-items: flex-end;
+}
+
+.collect-ribbon {
+  width: var(--ribbon-width);
+  height: var(--ribbon-height);
+  border-radius: var(--ribbon-radius);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, var(--ribbon-color) 35%, var(--ribbon-color) 100%);
+  transform: translate(0, 0) rotate(var(--ribbon-rotate)) skewY(var(--ribbon-skew));
+  opacity: 0;
+}
+
+.collect-ribbons.show .collect-ribbon {
+  animation: ribbon-arc var(--ribbon-duration) ease-in-out;
+  animation-delay: var(--ribbon-delay);
+}
+
+.collect-ribbon-group.left .collect-ribbon {
+  margin-left: var(--ribbon-offset);
+}
+
+.collect-ribbon-group.right .collect-ribbon {
+  margin-right: var(--ribbon-offset);
+}
+
 .action-bar {
   position: fixed;
   left: 0;
@@ -748,6 +870,24 @@ const goDetail = (id) => {
   }
   100% {
     transform: translate(calc(-50% + var(--spark-x)), calc(-50% + var(--spark-y))) scale(1.05);
+    opacity: 0;
+  }
+}
+
+@keyframes ribbon-arc {
+  0% {
+    transform: translate(0, 0) rotate(var(--ribbon-rotate)) skewY(var(--ribbon-skew));
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  55% {
+    transform: translate(var(--ribbon-peak-x), calc(var(--ribbon-peak-y) * -1)) rotate(calc(var(--ribbon-rotate) * 0.4)) skewY(var(--ribbon-skew));
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--ribbon-fall-x), calc(var(--ribbon-fall-y) * -1)) rotate(calc(var(--ribbon-rotate) * -0.2)) skewY(var(--ribbon-skew));
     opacity: 0;
   }
 }
